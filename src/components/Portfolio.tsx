@@ -131,7 +131,7 @@ export default function Portfolio() {
             <video
               controls
               playsInline
-              preload="metadata"
+              preload="none"
               poster="/images/pakketten-video-poster.jpg"
               controlsList="nofullscreen nodownload noremoteplayback"
               disablePictureInPicture
