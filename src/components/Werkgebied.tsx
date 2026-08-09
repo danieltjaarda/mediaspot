@@ -1,0 +1,127 @@
+import { provinces } from "./nl-provinces";
+
+// Provincies waar Mediaspot actief is
+const activeIds = new Set([
+  "NLGR", // Groningen
+  "NLFR", // Friesland
+  "NLDR", // Drenthe
+  "NLOV", // Overijssel
+  "NLFL", // Flevoland
+  "NLGE", // Gelderland
+  "NLUT", // Utrecht
+  "NLNH", // Noord-Holland
+]);
+
+const activeNames = provinces
+  .filter((p) => activeIds.has(p.id))
+  .map((p) => p.name);
+
+export default function Werkgebied() {
+  return (
+    <section id="werkgebied" className="py-16 sm:py-20">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-14">
+          {/* Tekst */}
+          <div>
+            <h2 className="text-balance text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">
+              Ons{" "}
+              <span
+                className="font-medium italic text-accent"
+                style={{ fontFamily: "var(--font-playfair)" }}
+              >
+                werkgebied
+              </span>
+            </h2>
+            <p className="mt-5 text-pretty leading-relaxed text-neutral-500">
+              Van Groningen tot Utrecht en van Noord-Holland tot Gelderland:
+              wij komen filmen door bijna heel Nederland. Staat jouw locatie
+              op de kaart? Dan reizen wij graag naar je toe.
+            </p>
+            <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-2">
+              {activeNames.map((name) => (
+                <li
+                  key={name}
+                  className="flex items-center gap-2.5 text-neutral-700"
+                >
+                  <span className="h-2 w-2 shrink-0 rounded-full bg-accent" />
+                  {name}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Kaart */}
+          <div
+            className="liquid-glass rounded-3xl p-6 sm:p-8"
+            style={{ boxShadow: "none" }}
+          >
+            <svg
+              viewBox="0 0 1000 1000"
+              role="img"
+              aria-label="Kaart van Nederland met het werkgebied van Mediaspot"
+              className="h-auto w-full"
+            >
+              {provinces.map((p) => {
+                const active = activeIds.has(p.id);
+                return (
+                  <path
+                    key={p.id}
+                    d={p.d}
+                    className={
+                      active
+                        ? "fill-[#1d1d1f] transition-colors duration-200 hover:fill-[#3a3a3d]"
+                        : "fill-neutral-200"
+                    }
+                    stroke="#ffffff"
+                    strokeWidth={2}
+                    strokeLinejoin="round"
+                  >
+                    <title>
+                      {active
+                        ? `${p.name} — hier werken wij`
+                        : `${p.name} — buiten ons werkgebied`}
+                    </title>
+                  </path>
+                );
+              })}
+
+              {/* Hoofdkantoor: Heerenveen */}
+              <g>
+                <title>Heerenveen — ons hoofdkantoor</title>
+                <circle
+                  cx="627.8"
+                  cy="244.1"
+                  r="22"
+                  className="fill-accent/40"
+                >
+                  <animate
+                    attributeName="r"
+                    values="16;30;16"
+                    dur="2.5s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+                <circle
+                  cx="627.8"
+                  cy="244.1"
+                  r="16"
+                  fill="#ffffff"
+                />
+                <circle
+                  cx="627.8"
+                  cy="244.1"
+                  r="10.5"
+                  className="fill-accent"
+                />
+              </g>
+            </svg>
+            <p className="mt-4 flex items-center justify-center gap-2 text-sm text-neutral-500">
+              <span className="h-2.5 w-2.5 rounded-full bg-accent ring-2 ring-white" />
+              Hoofdkantoor, Heerenveen
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
