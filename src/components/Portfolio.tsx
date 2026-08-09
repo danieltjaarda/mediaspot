@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import LazyVideo from "./LazyVideo";
+
 type PortfolioItem = {
   title: string;
   text: string;
@@ -58,17 +60,11 @@ function Card({ item }: { item: PortfolioItem }) {
       }`}
     >
       {item.media.type === "video" ? (
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          aria-label={item.alt}
+        <LazyVideo
+          src={item.media.src}
+          ariaLabel={item.alt}
           className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-        >
-          <source src={item.media.src} type="video/mp4" />
-        </video>
+        />
       ) : (
         <Image
           src={item.media.src}
