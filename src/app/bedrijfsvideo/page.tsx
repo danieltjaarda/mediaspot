@@ -120,13 +120,13 @@ export default function Bedrijfsvideo() {
                 <div className="mt-7 flex flex-wrap items-center gap-3">
                   <Link
                     href="tel:+31620176727"
-                    className="liquid-glass-btn inline-flex h-12 items-center justify-center rounded-full px-8 text-base font-semibold text-white"
+                    className="liquid-glass-btn btn-squeeze inline-flex h-12 items-center justify-center rounded-full px-8 text-base font-semibold text-white"
                   >
                     Neem contact op
                   </Link>
                   <Link
                     href="/#portfolio"
-                    className="inline-flex h-12 items-center justify-center rounded-full border border-white/40 px-8 text-base font-semibold text-white transition-colors duration-200 hover:bg-white/10"
+                    className="btn-squeeze inline-flex h-12 items-center justify-center rounded-full border border-white/40 px-8 text-base font-semibold text-white hover:bg-white/10"
                   >
                     Bekijk ons werk
                   </Link>
@@ -243,13 +243,13 @@ export default function Bedrijfsvideo() {
                 <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                   <Link
                     href="tel:+31620176727"
-                    className="inline-flex h-12 items-center justify-center rounded-full bg-accent px-8 text-base font-semibold text-white transition-all duration-200 hover:brightness-110"
+                    className="btn-squeeze inline-flex h-12 items-center justify-center rounded-full bg-accent px-8 text-base font-semibold text-white hover:brightness-110"
                   >
                     Bel 06 20176727
                   </Link>
                   <Link
                     href="mailto:info@mediaspot.nl"
-                    className="liquid-glass-btn inline-flex h-12 items-center justify-center rounded-full px-8 text-base font-semibold text-white"
+                    className="liquid-glass-btn btn-squeeze inline-flex h-12 items-center justify-center rounded-full px-8 text-base font-semibold text-white"
                   >
                     Mail ons
                   </Link>

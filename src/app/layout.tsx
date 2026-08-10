@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Videograaf uit Heerenveen voor bruiloften, aftermovies, bedrijfsfilms en social content. 4K, geleverd binnen 7 dagen en actief in heel Noord- en Midden-Nederland.",
+    "Videograaf uit Joure voor bruiloften, aftermovies, bedrijfsfilms en social content. 4K, geleverd binnen 7 dagen en actief in heel Noord- en Midden-Nederland.",
   applicationName: SITE_NAME,
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,

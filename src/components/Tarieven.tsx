@@ -276,7 +276,7 @@ export default function Tarieven() {
 
               <Link
                 href="tel:+31620176727"
-                className={`mt-auto inline-flex h-12 items-center justify-center rounded-full px-8 text-base font-semibold transition-all duration-200 ${
+                className={`btn-squeeze mt-auto inline-flex h-12 items-center justify-center rounded-full px-8 text-base font-semibold ${
                   p.highlight
                     ? "bg-accent text-white hover:brightness-110"
                     : "border border-neutral-300 text-neutral-900 hover:bg-neutral-900/5"

@@ -7,11 +7,15 @@ import {
   COUNTRY,
   EMAIL,
   GEO,
+  KVK,
+  LEGAL_NAME,
   PHONE_E164,
   REGION,
   SITE_NAME,
   SITE_URL,
   SOCIAL_PROFILES,
+  STREET,
+  VAT_ID,
 } from "@/lib/site";
 
 type PageMetaInput = {
@@ -73,10 +77,13 @@ export function organizationSchema(): JsonLdNode {
     "@type": ["LocalBusiness", "ProfessionalService"],
     "@id": ORGANIZATION_ID,
     name: SITE_NAME,
+    legalName: LEGAL_NAME,
     alternateName: "Mediaspot Videoproducties",
     url: SITE_URL,
+    identifier: { "@type": "PropertyValue", name: "KVK", value: KVK },
+    ...(VAT_ID ? { vatID: VAT_ID, taxID: VAT_ID } : {}),
     description:
-      "Videograaf uit Heerenveen voor bruiloften, evenementen, bedrijfsfilms en social content. Van concept tot montage.",
+      "Videograaf uit Joure voor bruiloften, evenementen, bedrijfsfilms en social content. Van concept tot montage.",
     telephone: PHONE_E164,
     email: EMAIL,
     logo: {
@@ -88,6 +95,7 @@ export function organizationSchema(): JsonLdNode {
     image: `${SITE_URL}/images/hero-main.jpg`,
     address: {
       "@type": "PostalAddress",
+      streetAddress: STREET,
       addressLocality: CITY,
       addressRegion: REGION,
       addressCountry: COUNTRY,

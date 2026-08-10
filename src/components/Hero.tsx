@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import HeroVideo from "@/components/HeroVideo";
 import RatingBadge from "@/components/RatingBadge";
 
 function ArrowButton() {
@@ -34,18 +35,11 @@ export default function Hero() {
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:grid-rows-2">
           {/* Grote kaart links */}
           <div className="group relative flex min-h-[420px] flex-col justify-end overflow-hidden rounded-3xl p-8 sm:min-h-[520px] sm:p-10 lg:col-span-2 lg:row-span-2">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              aria-hidden
-              poster="/images/hero-main.jpg"
+            <HeroVideo
+              src="/videos/herosectionvideo2.mp4"
+              poster="/images/hero-poster.jpg"
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-            >
-              <source src="/videos/herosectionvideo2.mp4" type="video/mp4" />
-            </video>
+            />
             <div
               aria-hidden
               className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"
@@ -65,13 +59,13 @@ export default function Hero() {
               <div className="mt-7 flex flex-wrap items-center gap-3">
                 <Link
                   href="#portfolio"
-                  className="liquid-glass-btn inline-flex h-12 items-center justify-center rounded-full px-8 text-base font-semibold text-white"
+                  className="liquid-glass-btn btn-squeeze inline-flex h-12 items-center justify-center rounded-full px-8 text-base font-semibold text-white"
                 >
                   Bekijk ons werk
                 </Link>
                 <Link
                   href="#tarieven"
-                  className="inline-flex h-12 items-center justify-center rounded-full border border-white/40 px-8 text-base font-semibold text-white transition-colors duration-200 hover:bg-white/10"
+                  className="btn-squeeze inline-flex h-12 items-center justify-center rounded-full border border-white/40 px-8 text-base font-semibold text-white hover:bg-white/10"
                 >
                   Prijzen
                 </Link>

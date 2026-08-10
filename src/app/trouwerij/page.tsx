@@ -5,6 +5,7 @@ import JsonLd from "@/components/JsonLd";
 import Portfolio from "@/components/Portfolio";
 import Reviews from "@/components/Reviews";
 import Tarieven from "@/components/Tarieven";
+import Trouwdag from "@/components/Trouwdag";
 import Werkgebied from "@/components/Werkgebied";
 import Werkwijze from "@/components/Werkwijze";
 import WieBenIk from "@/components/WieBenIk";
@@ -40,6 +41,7 @@ export default function Trouwerij() {
         <Werkwijze />
         <Portfolio />
         <Reviews />
+        <Trouwdag />
         <Tarieven />
         <WieBenIk />
         <Werkgebied />

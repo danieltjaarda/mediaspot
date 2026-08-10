@@ -7,12 +7,19 @@ export const PHONE_TEL = `tel:${PHONE_E164}`;
 export const WHATSAPP_URL = "https://wa.me/31620176727";
 export const EMAIL = "info@mediaspot.nl";
 
-export const CITY = "Heerenveen";
+/** Ingeschreven onderneming achter Mediaspot. */
+export const LEGAL_NAME = "Tjaarda Holding B.V.";
+export const KVK = "96808845";
+/** Vul aan zodra het btw-nummer bekend is, bijvoorbeeld "NL123456789B01". */
+export const VAT_ID = "";
+
+export const STREET = "Brandemeer 6";
+export const CITY = "Joure";
 export const REGION = "Friesland";
 export const COUNTRY = "NL";
 
-/** Coördinaten van Heerenveen; gebruikt voor het LocalBusiness-schema. */
-export const GEO = { latitude: 52.9597, longitude: 5.9195 };
+/** Coördinaten van Joure; gebruikt voor het LocalBusiness-schema. */
+export const GEO = { latitude: 52.9633, longitude: 5.7994 };
 
 /** Provincies waar we filmen; identiek aan de kaart in de Werkgebied-sectie. */
 export const AREA_SERVED = [

@@ -18,7 +18,12 @@ const routes: {
     path: "/trouwerij",
     priority: 0.9,
     changeFrequency: "monthly",
-    images: ["/images/bruiloft.png", "/images/portfolio-jawoord.png"],
+    images: [
+      "/images/bruiloft.png",
+      "/images/portfolio-jawoord.png",
+      "/images/trouwdag-ceremonie-buiten.jpg",
+      "/images/trouwdag-uittocht-confetti.jpg",
+    ],
   },
   {
     path: "/evenementen",
@@ -38,6 +43,8 @@ const routes: {
     changeFrequency: "monthly",
     images: ["/images/social-onlocation.jpg"],
   },
+  { path: "/algemene-voorwaarden", priority: 0.2, changeFrequency: "yearly" },
+  { path: "/privacybeleid", priority: 0.2, changeFrequency: "yearly" },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

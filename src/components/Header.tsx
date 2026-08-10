@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { PHONE_DISPLAY, PHONE_TEL } from "@/lib/site";
 
@@ -28,6 +28,27 @@ function WhatsAppIcon() {
   );
 }
 
+/** Drie streepjes die naar een kruis morphen; alleen translate, rotate en
+ *  opacity animeren, zodat de overgang vloeiend blijft. */
+function MenuIcon({ open }: { open: boolean }) {
+  const bar =
+    "absolute left-0 h-[2px] w-5 rounded-full bg-current transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]";
+
+  return (
+    <span aria-hidden className="relative block h-[14px] w-5">
+      <span
+        className={`${bar} top-0 ${open ? "translate-y-[6px] rotate-45" : ""}`}
+      />
+      <span
+        className={`${bar} top-1.5 ${open ? "scale-x-0 opacity-0" : ""}`}
+      />
+      <span
+        className={`${bar} top-3 ${open ? "-translate-y-[6px] -rotate-45" : ""}`}
+      />
+    </span>
+  );
+}
+
 function PhoneIcon() {
   return (
     <svg
@@ -48,6 +69,8 @@ function PhoneIcon() {
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const [panelHeight, setPanelHeight] = useState(0);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -55,6 +78,30 @@ export default function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // De hoogte van het menu meten, zodat max-height naar een exacte waarde
+  // kan animeren in plaats van naar een geschatte bovengrens.
+  useEffect(() => {
+    const panel = panelRef.current;
+    if (!panel) return;
+
+    const measure = () => setPanelHeight(panel.scrollHeight);
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(panel);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [menuOpen]);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6">
@@ -106,46 +153,57 @@ export default function Header() {
           {/* Mobiel hamburger */}
           <button
             aria-label={menuOpen ? "Menu sluiten" : "Menu openen"}
+            aria-expanded={menuOpen}
+            aria-controls="mobiel-menu"
             onClick={() => setMenuOpen((v) => !v)}
             className="flex h-10 w-10 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white lg:hidden"
           >
-            {menuOpen ? (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-                <path d="M6 6l12 12M18 6L6 18" />
-              </svg>
-            ) : (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-                <path d="M4 7h16M4 12h16M4 17h16" />
-              </svg>
-            )}
+            <MenuIcon open={menuOpen} />
           </button>
         </div>
       </div>
 
-      {/* Mobiel menu */}
-      {menuOpen && (
-        <div className="liquid-glass-dark-strong mx-auto mt-2 max-w-6xl rounded-3xl p-3 lg:hidden">
-          <nav className="flex flex-col">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setMenuOpen(false)}
-                className="rounded-2xl px-4 py-3 text-base font-medium text-white transition-colors hover:bg-white/10"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <a
-              href={PHONE_TEL}
-              className="mt-1 flex items-center gap-2.5 rounded-2xl px-4 py-3 text-base font-semibold text-accent"
-            >
-              <PhoneIcon />
-              {PHONE_DISPLAY}
-            </a>
-          </nav>
+      {/* Mobiel menu: blijft in de DOM zodat open en dicht kunnen animeren */}
+      <div
+        id="mobiel-menu"
+        inert={!menuOpen}
+        aria-hidden={!menuOpen}
+        style={{ maxHeight: menuOpen ? panelHeight : 0 }}
+        className={`overflow-hidden transition-all duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] lg:hidden ${
+          menuOpen ? "opacity-100" : "-translate-y-1 opacity-0"
+        }`}
+      >
+        <div ref={panelRef} className="pt-2">
+          <div className="liquid-glass-dark-strong mx-auto max-w-6xl rounded-3xl p-3">
+            <nav className="flex flex-col">
+              {[...navItems, { label: PHONE_DISPLAY, href: PHONE_TEL }].map(
+                (item, index) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMenuOpen(false)}
+                    style={{
+                      transitionDelay: menuOpen ? `${80 + index * 45}ms` : "0ms",
+                    }}
+                    className={`flex items-center gap-2.5 rounded-2xl px-4 py-3 text-base font-medium transition-all duration-300 hover:bg-white/10 ${
+                      item.href === PHONE_TEL
+                        ? "mt-1 font-semibold text-accent"
+                        : "text-white"
+                    } ${
+                      menuOpen
+                        ? "translate-y-0 opacity-100"
+                        : "-translate-y-2 opacity-0"
+                    }`}
+                  >
+                    {item.href === PHONE_TEL && <PhoneIcon />}
+                    {item.label}
+                  </Link>
+                ),
+              )}
+            </nav>
+          </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }

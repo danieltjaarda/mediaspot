@@ -1,7 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { CITY, EMAIL, PHONE_DISPLAY, PHONE_TEL, REGION } from "@/lib/site";
+import {
+  CITY,
+  EMAIL,
+  KVK,
+  LEGAL_NAME,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  STREET,
+  VAT_ID,
+} from "@/lib/site";
 
 const columns = [
   {
@@ -79,7 +88,7 @@ export default function Footer() {
                   <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                   <circle cx="12" cy="10" r="3" />
                 </svg>
-                {CITY}, {REGION}
+                {STREET}, {CITY}
               </p>
             </address>
           </div>
@@ -110,17 +119,28 @@ export default function Footer() {
 
         {/* Onderbalk */}
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-black/10 pt-6 sm:flex-row">
-          <p className="text-xs text-neutral-400">
-            © {new Date().getFullYear()} Mediaspot. Alle rechten voorbehouden.
+          <p className="text-center text-xs text-neutral-400 sm:text-left">
+            © {new Date().getFullYear()} Mediaspot, onderdeel van {LEGAL_NAME}
+            <br className="hidden sm:block" /> KVK {KVK}
+            {VAT_ID ? ` · btw ${VAT_ID}` : ""} · Alle rechten voorbehouden.
           </p>
           <div className="flex items-center gap-5 text-xs text-neutral-400">
-            <Link href="#" className="transition-colors hover:text-neutral-900">
+            <Link
+              href="/privacybeleid"
+              className="transition-colors hover:text-neutral-900"
+            >
               Privacybeleid
             </Link>
-            <Link href="#" className="transition-colors hover:text-neutral-900">
+            <Link
+              href="/algemene-voorwaarden"
+              className="transition-colors hover:text-neutral-900"
+            >
               Algemene voorwaarden
             </Link>
-            <Link href="#" className="transition-colors hover:text-neutral-900">
+            <Link
+              href="/privacybeleid#cookies"
+              className="transition-colors hover:text-neutral-900"
+            >
               Cookies
             </Link>
           </div>

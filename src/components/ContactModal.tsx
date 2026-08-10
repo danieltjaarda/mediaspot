@@ -131,7 +131,7 @@ export default function ContactModal() {
           <a
             href={PHONE_TEL}
             tabIndex={open ? 0 : -1}
-            className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-accent px-6 text-base font-semibold text-white transition-all duration-200 hover:brightness-110"
+            className="btn-squeeze inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-accent px-6 text-base font-semibold text-white hover:brightness-110"
           >
             <PhoneIcon />
             Bel {PHONE_DISPLAY}
@@ -141,7 +141,7 @@ export default function ContactModal() {
             target="_blank"
             rel="noopener noreferrer"
             tabIndex={open ? 0 : -1}
-            className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-[#25D366] px-6 text-base font-semibold text-white transition-all duration-200 hover:brightness-105"
+            className="btn-squeeze inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-[#25D366] px-6 text-base font-semibold text-white hover:brightness-105"
           >
             <WhatsAppIcon />
             WhatsApp sturen

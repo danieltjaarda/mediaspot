@@ -85,12 +85,12 @@ export default function Werkgebied() {
                 );
               })}
 
-              {/* Hoofdkantoor: Heerenveen */}
+              {/* Hoofdkantoor: Joure */}
               <g>
-                <title>Heerenveen — ons hoofdkantoor</title>
+                <title>Joure — ons hoofdkantoor</title>
                 <circle
-                  cx="627.8"
-                  cy="244.1"
+                  cx="604.1"
+                  cy="242.9"
                   r="22"
                   className="fill-accent/40"
                 >
@@ -102,14 +102,14 @@ export default function Werkgebied() {
                   />
                 </circle>
                 <circle
-                  cx="627.8"
-                  cy="244.1"
+                  cx="604.1"
+                  cy="242.9"
                   r="16"
                   fill="#ffffff"
                 />
                 <circle
-                  cx="627.8"
-                  cy="244.1"
+                  cx="604.1"
+                  cy="242.9"
                   r="10.5"
                   className="fill-accent"
                 />
@@ -117,7 +117,7 @@ export default function Werkgebied() {
             </svg>
             <p className="mt-4 flex items-center justify-center gap-2 text-sm text-neutral-500">
               <span className="h-2.5 w-2.5 rounded-full bg-accent ring-2 ring-white" />
-              Hoofdkantoor, Heerenveen
+              Hoofdkantoor, Joure
             </p>
           </div>
         </div>

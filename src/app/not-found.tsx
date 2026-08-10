@@ -45,7 +45,7 @@ export default function NotFound() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/"
-                className="inline-flex h-12 items-center justify-center rounded-full bg-accent px-8 text-base font-semibold text-white transition-all duration-200 hover:brightness-110"
+                className="btn-squeeze inline-flex h-12 items-center justify-center rounded-full bg-accent px-8 text-base font-semibold text-white hover:brightness-110"
               >
                 Naar de homepage
               </Link>
@@ -53,7 +53,7 @@ export default function NotFound() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="inline-flex h-12 items-center justify-center rounded-full border border-neutral-300 px-6 text-base font-semibold text-neutral-900 transition-colors duration-200 hover:bg-neutral-900/5"
+                  className="btn-squeeze inline-flex h-12 items-center justify-center rounded-full border border-neutral-300 px-6 text-base font-semibold text-neutral-900 hover:bg-neutral-900/5"
                 >
                   {link.label}
                 </Link>

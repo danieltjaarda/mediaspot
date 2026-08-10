@@ -191,7 +191,7 @@ export default function Reviews() {
           href={REVIEW_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-neutral-300 px-6 text-sm font-semibold text-neutral-900 transition-all duration-200 hover:bg-neutral-900/5 sm:px-8 sm:text-base"
+          className="btn-squeeze inline-flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-neutral-300 px-6 text-sm font-semibold text-neutral-900 hover:bg-neutral-900/5 sm:px-8 sm:text-base"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
             <path d="M12 2.5l2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.35l-5.81 3.05 1.11-6.47L2.6 9.35l6.5-.95L12 2.5Z" />

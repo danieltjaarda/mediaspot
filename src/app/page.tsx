@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import HeroVideo from "@/components/HeroVideo";
 import LazyVideo from "@/components/LazyVideo";
 import Reviews from "@/components/Reviews";
 import Werkgebied from "@/components/Werkgebied";
@@ -105,18 +106,11 @@ export default function Home() {
 
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <div className="group relative flex min-h-[460px] flex-col justify-end overflow-hidden rounded-3xl p-8 sm:min-h-[560px] sm:p-10">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                aria-hidden
-                poster="/images/hero-main.jpg"
+              <HeroVideo
+                src="/videos/herosectionvideo2.mp4"
+                poster="/images/hero-poster.jpg"
                 className="absolute inset-0 h-full w-full object-cover"
-              >
-                <source src="/videos/herosectionvideo2.mp4" type="video/mp4" />
-              </video>
+              />
               <div
                 aria-hidden
                 className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"
@@ -137,13 +131,13 @@ export default function Home() {
                 <div className="mt-7 flex flex-wrap items-center gap-3">
                   <Link
                     href="#diensten"
-                    className="liquid-glass-btn inline-flex h-12 items-center justify-center rounded-full px-8 text-base font-semibold text-white"
+                    className="liquid-glass-btn btn-squeeze inline-flex h-12 items-center justify-center rounded-full px-8 text-base font-semibold text-white"
                   >
                     Bekijk ons werk
                   </Link>
                   <Link
                     href="tel:+31620176727"
-                    className="inline-flex h-12 items-center justify-center rounded-full border border-white/40 px-8 text-base font-semibold text-white transition-colors duration-200 hover:bg-white/10"
+                    className="btn-squeeze inline-flex h-12 items-center justify-center rounded-full border border-white/40 px-8 text-base font-semibold text-white hover:bg-white/10"
                   >
                     Neem contact op
                   </Link>
@@ -278,13 +272,13 @@ export default function Home() {
                 <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                   <Link
                     href="tel:+31620176727"
-                    className="inline-flex h-12 items-center justify-center rounded-full bg-accent px-8 text-base font-semibold text-white transition-all duration-200 hover:brightness-110"
+                    className="btn-squeeze inline-flex h-12 items-center justify-center rounded-full bg-accent px-8 text-base font-semibold text-white hover:brightness-110"
                   >
                     Bel 06 20176727
                   </Link>
                   <Link
                     href="mailto:info@mediaspot.nl"
-                    className="liquid-glass-btn inline-flex h-12 items-center justify-center rounded-full px-8 text-base font-semibold text-white"
+                    className="liquid-glass-btn btn-squeeze inline-flex h-12 items-center justify-center rounded-full px-8 text-base font-semibold text-white"
                   >
                     Mail ons
                   </Link>

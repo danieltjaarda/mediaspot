@@ -97,7 +97,7 @@ export default async function OpengraphImage() {
             <span
               style={{ color: "rgba(255,255,255,0.72)", fontWeight: 400 }}
             >
-              Heerenveen
+              Joure
             </span>
           </div>
         </div>
