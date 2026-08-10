@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import RatingBadge from "@/components/RatingBadge";
+
 function ArrowButton() {
   return (
     <span className="liquid-glass-btn flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-200 group-hover:scale-110">
@@ -38,6 +40,7 @@ export default function Hero() {
               loop
               playsInline
               preload="auto"
+              aria-hidden
               poster="/images/hero-main.jpg"
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             >
@@ -56,9 +59,9 @@ export default function Hero() {
               <h1 className="max-w-lg text-balance text-4xl font-semibold leading-tight tracking-tight text-white sm:text-5xl">
                 Jullie bruiloft, cinematisch vastgelegd.
               </h1>
-              <p className="mt-4 max-w-md text-pretty text-white/75">
-                Van ja-woord tot avondfeest: strak gefilmd, scherp gemonteerd.
-              </p>
+              <div className="mt-5">
+                <RatingBadge />
+              </div>
               <div className="mt-7 flex flex-wrap items-center gap-3">
                 <Link
                   href="#portfolio"
@@ -85,6 +88,7 @@ export default function Hero() {
               src="/images/bruiloft.png"
               alt="Bruidspaar met boeket tijdens de ceremonie"
               fill
+              priority
               sizes="(max-width: 1024px) 100vw, 33vw"
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
             />
@@ -94,9 +98,7 @@ export default function Hero() {
             />
             <div className="relative flex w-full items-end justify-between gap-4">
               <div>
-                <h2 className="text-2xl font-semibold text-white">
-                  Prijzen
-                </h2>
+                <p className="text-2xl font-semibold text-white">Prijzen</p>
                 <p className="mt-1 text-sm text-white/70">
                   Bekijk onze trouwfilm pakketten
                 </p>
@@ -111,11 +113,11 @@ export default function Hero() {
             className="group relative flex min-h-[240px] items-end overflow-hidden rounded-3xl p-6"
           >
             <Image
-              src="/images/wie-ben-ik.png"
+              src="/images/wie-ben-ik.jpg"
               alt="Videograaf van Mediaspot met camera op locatie"
               fill
               sizes="(max-width: 1024px) 100vw, 33vw"
-              className="object-cover object-[50%_5%] transition-transform duration-700 ease-out group-hover:scale-[1.05] lg:object-center"
+              className="object-cover object-[50%_12%] transition-transform duration-700 ease-out group-hover:scale-[1.05]"
             />
             <div
               aria-hidden
@@ -123,9 +125,9 @@ export default function Hero() {
             />
             <div className="relative flex w-full items-end justify-between gap-4">
               <div>
-                <h2 className="text-2xl font-semibold text-white">
+                <p className="text-2xl font-semibold text-white">
                   Wie ben ik
-                </h2>
+                </p>
                 <p className="mt-1 text-sm text-white/70">
                   Maak kennis met de videograaf
                 </p>

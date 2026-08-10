@@ -10,7 +10,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-geist-sans);
 }
 
 html {
@@ -20,7 +20,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   font-weight: 400;
 }
 
@@ -188,14 +188,24 @@ body {
   animation: social-marquee 30s linear infinite;
 }
 
-.social-marquee:hover .social-marquee-track,
+/* Reviews: bovenste rij schuift naar links, onderste naar rechts */
+.review-marquee-track {
+  animation: social-marquee 55s linear infinite;
+}
+
+.review-marquee-track-reverse {
+  animation: social-marquee 55s linear infinite reverse;
+}
+
 .social-marquee-track.is-paused {
   animation-play-state: paused;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .social-marquee-track,
-  .logo-marquee-track {
+  .logo-marquee-track,
+  .review-marquee-track,
+  .review-marquee-track-reverse {
     animation: none;
   }
 }

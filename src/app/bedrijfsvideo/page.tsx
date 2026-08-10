@@ -7,53 +7,53 @@ import JsonLd from "@/components/JsonLd";
 import LazyVideo from "@/components/LazyVideo";
 import { breadcrumbSchema, pageMetadata, serviceSchema } from "@/lib/seo";
 
-const PATH = "/evenementen";
+const PATH = "/bedrijfsvideo";
 
 export const metadata = pageMetadata({
-  title: "Aftermovie laten maken voor je evenement",
+  title: "Bedrijfsvideo laten maken",
   description:
-    "Aftermovies en eventvideo's met impact: bedrijfsevenementen, festivals, feesten en jubilea. Cinematisch gefilmd, scherp gemonteerd en snel opgeleverd.",
+    "Bedrijfsfilms, productvideo's, commercials en testimonials die verkopen. Van concept tot montage, in 4K gefilmd en binnen 7 dagen geleverd.",
   path: PATH,
   keywords: [
-    "aftermovie laten maken",
-    "eventvideograaf",
-    "evenement laten filmen",
-    "festival aftermovie",
-    "bedrijfsevenement video",
+    "bedrijfsvideo laten maken",
+    "bedrijfsfilm",
+    "productvideo",
+    "commercial laten maken",
+    "testimonial video",
   ],
 });
 
-type EventType = {
+type VideoType = {
   title: string;
   text: string;
   media: { type: "image" | "video"; src: string };
   alt: string;
 };
 
-const eventTypes: EventType[] = [
+const videoTypes: VideoType[] = [
   {
-    title: "Aftermovies",
-    text: "De energie van jouw event samengevat in een film van 1 tot 3 minuten, perfect voor social media en de promotie van je volgende editie.",
-    media: { type: "image", src: "/images/event-confetti.jpg" },
-    alt: "Confettiregen boven een feestend publiek",
-  },
-  {
-    title: "Bedrijfsevenementen",
-    text: "Congressen, beurzen, personeelsfeesten en openingen. Professioneel vastgelegd, zonder dat we opvallen op de vloer.",
+    title: "Bedrijfsfilm",
+    text: "Laat zien wie jullie zijn: het verhaal, de mensen en de werkvloer, samengebracht in één krachtige film voor je website en presentaties.",
     media: { type: "image", src: "/images/event-congres.jpg" },
-    alt: "Volle congreszaal tijdens een zakelijk evenement",
+    alt: "Zakelijke presentatie in een volle zaal",
   },
   {
-    title: "Festivals & concerten",
-    text: "Van de eerste bezoeker tot de laatste beat: sfeerbeelden, publiek en artiesten, gefilmd met oog voor licht en timing.",
-    media: { type: "image", src: "/images/event-concert.jpg" },
-    alt: "Groot concert met lichtshow en duizenden bezoekers",
+    title: "Productvideo",
+    text: "Jouw product in de spotlight. Strak in beeld gebracht en gemonteerd om te overtuigen, van webshop tot beurspresentatie.",
+    media: { type: "video", src: "/videos/social-tt1.mp4" },
+    alt: "Productvideo van een verstelbaar bureau",
   },
   {
-    title: "Feesten & jubilea",
-    text: "Een verjaardag, jubileum of gala om nooit te vergeten. Wij leggen de momenten vast waar het echt om draait.",
-    media: { type: "video", src: "/videos/portfolio-speeches.mp4" },
-    alt: "Speech en toost tijdens een feest",
+    title: "Commercial",
+    text: "Korte, pakkende video's die blijven hangen. Perfect voor online campagnes, social ads en televisie.",
+    media: { type: "video", src: "/videos/social-tt2.mp4" },
+    alt: "Commercial voor een fatbike",
+  },
+  {
+    title: "Testimonial & klantcase",
+    text: "Niets overtuigt beter dan een tevreden klant. Wij leggen echte verhalen vast die vertrouwen wekken bij nieuwe klanten.",
+    media: { type: "video", src: "/videos/social-yt1.mp4" },
+    alt: "Interview waarin een expert uitleg geeft",
   },
 ];
 
@@ -64,7 +64,7 @@ const usps = [
   },
   {
     title: "Snelle levering",
-    text: "Je aftermovie binnen 7 dagen in huis",
+    text: "Je video binnen 7 dagen in huis",
   },
   {
     title: "Persoonlijke aanpak",
@@ -72,7 +72,7 @@ const usps = [
   },
 ];
 
-export default function Evenementen() {
+export default function Bedrijfsvideo() {
   return (
     <>
       <Header />
@@ -95,10 +95,10 @@ export default function Evenementen() {
                 playsInline
                 preload="auto"
                 aria-hidden
-                poster="/images/event-drone-poster.jpg"
+                poster="/images/social-yt2-poster.jpg"
                 className="absolute inset-0 h-full w-full object-cover"
               >
-                <source src="/videos/portfolio-drone.mp4" type="video/mp4" />
+                <source src="/videos/social-yt2.mp4" type="video/mp4" />
               </video>
               <div
                 aria-hidden
@@ -111,11 +111,11 @@ export default function Evenementen() {
 
               <div className="relative">
                 <h1 className="max-w-xl text-balance text-4xl font-semibold leading-tight tracking-tight text-white sm:text-5xl">
-                  Jouw evenement, cinematisch vastgelegd.
+                  Jouw bedrijf, cinematisch vastgelegd.
                 </h1>
                 <p className="mt-4 max-w-md text-pretty text-white/75">
-                  Van bedrijfsfeest tot festival: wij maken er een aftermovie
-                  van die blijft hangen.
+                  Van bedrijfsfilm tot commercial: video die jouw merk laat
+                  groeien.
                 </p>
                 <div className="mt-7 flex flex-wrap items-center gap-3">
                   <Link
@@ -136,7 +136,7 @@ export default function Evenementen() {
           </div>
         </section>
 
-        {/* Soorten evenementen */}
+        {/* Soorten video's */}
         <section className="py-14 sm:py-16">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <div className="max-w-xl">
@@ -146,17 +146,17 @@ export default function Evenementen() {
                   className="font-medium italic text-accent"
                   style={{ fontFamily: "var(--font-playfair)" }}
                 >
-                  filmen
+                  maken
                 </span>
               </h2>
               <p className="mt-4 text-pretty text-neutral-500">
-                Groot of klein, zakelijk of feestelijk: elk evenement verdient
-                beelden die de sfeer écht overbrengen.
+                Elke video begint met jouw doel: meer naamsbekendheid, meer
+                omzet of nieuw talent. Daar maken wij beeld bij dat werkt.
               </p>
             </div>
 
             <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {eventTypes.map((t) => (
+              {videoTypes.map((t) => (
                 <div
                   key={t.title}
                   className="group relative flex min-h-[300px] items-end overflow-hidden rounded-3xl p-6 sm:min-h-[340px] sm:p-7"
@@ -227,18 +227,18 @@ export default function Evenementen() {
               </div>
               <div className="relative">
                 <h2 className="text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-                  Een evenement op de{" "}
+                  Jouw bedrijf in{" "}
                   <span
                     className="font-medium italic text-accent"
                     style={{ fontFamily: "var(--font-playfair)" }}
                   >
-                    planning
+                    beeld
                   </span>
                   {"?"}
                 </h2>
                 <p className="mx-auto mt-4 max-w-md text-pretty text-white/70">
-                  Vertel ons wat je gaat organiseren, dan denken wij mee over
-                  de mooiste manier om het vast te leggen.
+                  Vertel ons over jouw doel, dan denken wij mee over de video
+                  die daarbij past. Vrijblijvend en zonder verplichtingen.
                 </p>
                 <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                   <Link
@@ -263,13 +263,13 @@ export default function Evenementen() {
       <JsonLd
         nodes={[
           serviceSchema({
-            name: "Aftermovie en eventvideo laten maken",
-            serviceType: "Evenementvideografie",
+            name: "Bedrijfsvideo laten maken",
+            serviceType: "Bedrijfsvideografie",
             description:
-              "Aftermovies en eventregistraties voor bedrijfsevenementen, festivals, concerten, feesten en jubilea. Inclusief montage en color grading.",
+              "Bedrijfsfilms, productvideo's, commercials en testimonials voor website, social media en advertenties. Inclusief concept, opname en montage.",
             path: PATH,
           }),
-          breadcrumbSchema([{ name: "Evenementen", path: PATH }]),
+          breadcrumbSchema([{ name: "Bedrijfsvideo", path: PATH }]),
         ]}
       />
     </>

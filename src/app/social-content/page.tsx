@@ -1,16 +1,28 @@
-import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import JsonLd from "@/components/JsonLd";
 import LogoMarquee from "@/components/LogoMarquee";
 import SocialMarquee from "@/components/SocialMarquee";
+import { breadcrumbSchema, pageMetadata, serviceSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Social content — Mediaspot",
+const PATH = "/social-content";
+
+export const metadata = pageMetadata({
+  title: "Social content laten maken voor TikTok, Reels en Shorts",
   description:
-    "Short-form video's voor TikTok, Instagram en YouTube die scoren. Van concept tot montage, gemaakt om gezien te worden.",
-};
+    "Short-form video's die scoren op TikTok, Instagram Reels en YouTube Shorts. Meerdere video's uit één draaidag, van concept tot montage.",
+  path: PATH,
+  keywords: [
+    "social content laten maken",
+    "TikTok video laten maken",
+    "Reels laten maken",
+    "short form video",
+    "social media videograaf",
+  ],
+});
 
 type SocialVideo = {
   src: string;
@@ -151,6 +163,45 @@ export default function SocialContent() {
           </div>
         </section>
 
+        {/* On location */}
+        <section className="py-8 sm:py-10">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
+              <div className="relative aspect-square overflow-hidden rounded-3xl">
+                <Image
+                  src="/images/social-onlocation.jpg"
+                  alt="Videograaf van Mediaspot filmt on location in een historische straat"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
+              </div>
+              <div>
+                <h2 className="text-balance text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">
+                  Altijd{" "}
+                  <span
+                    className="font-medium italic text-accent"
+                    style={{ fontFamily: "var(--font-playfair)" }}
+                  >
+                    on location
+                  </span>
+                </h2>
+                <p className="mt-4 max-w-md text-pretty text-neutral-500">
+                  In je winkel, op kantoor of midden op straat: wij komen
+                  naar jou toe. Met professionele cinema-camera&apos;s leggen we
+                  jouw merk vast waar het gebeurt, zodat je content niet alleen
+                  scoort, maar er ook écht uitziet als jouw verhaal.
+                </p>
+                <p className="mt-3 max-w-md text-pretty text-neutral-500">
+                  Jij hoeft alleen maar jezelf te zijn. Wij regelen het
+                  concept, de opnames en de montage, van eerste idee tot
+                  publicatie.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* CTA */}
         <section className="py-8 pb-16 sm:pb-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -196,6 +247,18 @@ export default function SocialContent() {
         </section>
       </main>
       <Footer />
+      <JsonLd
+        nodes={[
+          serviceSchema({
+            name: "Social content laten maken",
+            serviceType: "Social media videografie",
+            description:
+              "Verticale short-form video's voor TikTok, Instagram Reels en YouTube Shorts, inclusief concept, opname en montage.",
+            path: PATH,
+          }),
+          breadcrumbSchema([{ name: "Social content", path: PATH }]),
+        ]}
+      />
     </>
   );
 }

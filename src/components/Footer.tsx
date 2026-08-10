@@ -1,30 +1,37 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { CITY, EMAIL, PHONE_DISPLAY, PHONE_TEL, REGION } from "@/lib/site";
+
 const columns = [
   {
     title: "Diensten",
     links: [
-      "Bedrijfsfilms",
-      "Bruiloftsvideo's",
-      "Aftermovies",
-      "Commercials",
-      "Drone-opnames",
+      { label: "Bedrijfsfilms", href: "/bedrijfsvideo" },
+      { label: "Bruiloftsvideo's", href: "/trouwerij" },
+      { label: "Aftermovies", href: "/evenementen" },
+      { label: "Social content", href: "/social-content" },
+      { label: "Commercials", href: "/bedrijfsvideo" },
     ],
   },
   {
     title: "Informatie",
     links: [
-      "Portfolio",
-      "Werkwijze",
-      "Veelgestelde vragen",
-      "Tarieven",
-      "Contact",
+      { label: "Portfolio", href: "/#diensten" },
+      { label: "Werkwijze", href: "/#werkwijze" },
+      { label: "Werkgebied", href: "/#werkgebied" },
+      { label: "Tarieven", href: "/trouwerij#tarieven" },
+      { label: "Contact", href: PHONE_TEL },
     ],
   },
   {
     title: "Over Mediaspot",
-    links: ["Ons verhaal", "Team", "Samenwerkingen", "Vacatures"],
+    links: [
+      { label: "Wie ben ik", href: "/#over-ons" },
+      { label: "Ons verhaal", href: "/#over-ons" },
+      { label: "Samenwerkingen", href: "/social-content" },
+      { label: "Contact opnemen", href: PHONE_TEL },
+    ],
   },
 ];
 
@@ -47,27 +54,34 @@ export default function Footer() {
               montage: wij vertellen jouw verhaal in beeld.
             </p>
 
-            <div className="mt-7 space-y-3 text-sm">
+            <address className="mt-7 space-y-3 text-sm not-italic">
               <a
-                href="tel:+31620176727"
+                href={PHONE_TEL}
                 className="flex items-center gap-3 text-neutral-700 transition-colors hover:text-accent"
               >
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
-                06 20176727
+                {PHONE_DISPLAY}
               </a>
               <a
-                href="mailto:info@mediaspot.nl"
+                href={`mailto:${EMAIL}`}
                 className="flex items-center gap-3 text-neutral-700 transition-colors hover:text-accent"
               >
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                   <rect x="3" y="5" width="18" height="14" rx="2" />
                   <path d="m3 7 9 6 9-6" />
                 </svg>
-                info@mediaspot.nl
+                {EMAIL}
               </a>
-            </div>
+              <p className="flex items-center gap-3 text-neutral-700">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                {CITY}, {REGION}
+              </p>
+            </address>
           </div>
 
           {/* Linkkolommen */}
@@ -79,12 +93,12 @@ export default function Footer() {
                 </h3>
                 <ul className="mt-4 space-y-3">
                   {col.links.map((link) => (
-                    <li key={link}>
+                    <li key={link.label}>
                       <Link
-                        href="#"
+                        href={link.href}
                         className="text-sm text-neutral-500 transition-colors hover:text-neutral-900"
                       >
-                        {link}
+                        {link.label}
                       </Link>
                     </li>
                   ))}
