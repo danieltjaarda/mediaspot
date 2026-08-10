@@ -5,11 +5,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const navItems = [
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Trouwerij", href: "#trouwerij" },
-  { label: "Evenementen", href: "#evenementen" },
-  { label: "Bedrijfsvideo", href: "#bedrijfsvideo" },
-  { label: "Social content", href: "#social-content" },
+  { label: "Portfolio", href: "/#portfolio" },
+  { label: "Trouwerij", href: "/#tarieven" },
+  { label: "Evenementen", href: "/evenementen" },
+  { label: "Bedrijfsvideo", href: "/#bedrijfsvideo" },
+  { label: "Social content", href: "/social-content" },
 ];
 
 const PHONE_DISPLAY = "06 20176727";
