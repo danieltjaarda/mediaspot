@@ -1,6 +1,7 @@
 import { GeistSans } from "geist/font/sans";
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 import ContactModal from "@/components/ContactModal";
@@ -74,6 +75,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <ContactModal />
         <JsonLd nodes={[organizationSchema(), websiteSchema()]} />
+
+        {/* Google-tag (gtag.js) voor Google Ads-conversiemeting */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18383248376"
+          strategy="afterInteractive"
+        />
+        <Script id="google-tag" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'AW-18383248376');`}
+        </Script>
       </body>
     </html>
   );

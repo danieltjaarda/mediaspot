@@ -168,17 +168,27 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          <strong>Deze website plaatst geen tracking- of marketingcookies.</strong>{" "}
-          We gebruiken geen Google Analytics of vergelijkbare
-          bezoekersstatistieken en we zetten geen advertentiepixels in. Daarom
-          zie je op onze site ook geen cookiemelding: die is niet nodig.
+          Deze website gebruikt de <strong>Google-tag (gtag.js)</strong> van
+          Google Ads om te meten of onze advertenties tot een aanvraag leiden
+          (conversiemeting). Google kan hiervoor cookies plaatsen en gegevens
+          verwerken zoals je IP-adres en de pagina&apos;s die je bezoekt. Hoe
+          Google met deze gegevens omgaat lees je in het{" "}
+          <a
+            href="https://policies.google.com/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            privacybeleid van Google
+          </a>
+          .
         </p>
         <p>
-          We hebben de site zo gebouwd dat je browser tijdens je bezoek geen
-          verbinding maakt met externe partijen. De lettertypen staan op onze
-          eigen server en alle video&apos;s spelen we zelf af, dus er zijn geen
-          YouTube- of TikTok-spelers die meekijken. Alleen onze hostingpartij
-          verwerkt de technische serverlogboeken die hierboven zijn beschreven.
+          Verder plaatsen we geen tracking- of marketingcookies en gebruiken we
+          geen Google Analytics of vergelijkbare bezoekersstatistieken. De
+          lettertypen staan op onze eigen server en alle video&apos;s spelen we
+          zelf af, dus er zijn geen YouTube- of TikTok-spelers die meekijken.
+          Daarnaast verwerkt alleen onze hostingpartij de technische
+          serverlogboeken die hierboven zijn beschreven.
         </p>
       </>
     ),
