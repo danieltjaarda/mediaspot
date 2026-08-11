@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { meldLead } from "@/lib/analytics";
+
 const onderwerpen = [
   "Bruiloft",
   "Evenement",
@@ -47,6 +49,7 @@ export default function ContactForm() {
         return;
       }
 
+      meldLead("formulier");
       setStatus("gelukt");
     } catch {
       setFoutmelding(

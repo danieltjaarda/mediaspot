@@ -6,6 +6,7 @@ import "./globals.css";
 
 import ContactModal from "@/components/ContactModal";
 import JsonLd from "@/components/JsonLd";
+import LeadTracker from "@/components/LeadTracker";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
@@ -74,17 +75,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         {children}
         <ContactModal />
+        <LeadTracker />
         <JsonLd nodes={[organizationSchema(), websiteSchema()]} />
 
-        {/* Google-tag (gtag.js) voor Google Ads-conversiemeting */}
+        {/* Google-tag (gtag.js): Google Analytics 4 + Google Ads-conversiemeting */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-18383248376"
+          src="https://www.googletagmanager.com/gtag/js?id=G-F39P87QKQJ"
           strategy="afterInteractive"
         />
         <Script id="google-tag" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
+gtag('config', 'G-F39P87QKQJ');
 gtag('config', 'AW-18383248376');`}
         </Script>
       </body>

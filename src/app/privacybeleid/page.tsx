@@ -168,11 +168,13 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          Deze website gebruikt de <strong>Google-tag (gtag.js)</strong> van
-          Google Ads om te meten of onze advertenties tot een aanvraag leiden
-          (conversiemeting). Google kan hiervoor cookies plaatsen en gegevens
-          verwerken zoals je IP-adres en de pagina&apos;s die je bezoekt. Hoe
-          Google met deze gegevens omgaat lees je in het{" "}
+          Deze website gebruikt de <strong>Google-tag (gtag.js)</strong> voor
+          Google Analytics en Google Ads. Daarmee zien we hoeveel mensen onze
+          site bezoeken, welke pagina&apos;s zij bekijken en of onze
+          advertenties tot een aanvraag leiden. Google kan hiervoor cookies
+          plaatsen en gegevens verwerken zoals je IP-adres, je apparaat en de
+          pagina&apos;s die je bezoekt. Hoe Google met deze gegevens omgaat lees
+          je in het{" "}
           <a
             href="https://policies.google.com/privacy"
             target="_blank"
@@ -183,8 +185,13 @@ const sections: LegalSection[] = [
           .
         </p>
         <p>
-          Verder plaatsen we geen tracking- of marketingcookies en gebruiken we
-          geen Google Analytics of vergelijkbare bezoekersstatistieken. De
+          We meten daarbij ook wanneer iemand contact met ons opneemt: het
+          verzenden van het contactformulier en het aanklikken van onze bel-,
+          WhatsApp- of e-mailknop. We registreren alleen dát dit gebeurt, niet
+          wat je invult of wat je vervolgens tegen ons zegt.
+        </p>
+        <p>
+          Verder plaatsen we geen advertentiepixels van andere partijen. De
           lettertypen staan op onze eigen server en alle video&apos;s spelen we
           zelf af, dus er zijn geen YouTube- of TikTok-spelers die meekijken.
           Daarnaast verwerkt alleen onze hostingpartij de technische

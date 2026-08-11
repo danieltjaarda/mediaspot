@@ -191,6 +191,7 @@ export default function Reviews() {
           href={REVIEW_URL}
           target="_blank"
           rel="noopener noreferrer"
+          data-lead="geen"
           className="btn-squeeze inline-flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-neutral-300 px-6 text-sm font-semibold text-neutral-900 hover:bg-neutral-900/5 sm:px-8 sm:text-base"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
