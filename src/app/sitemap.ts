@@ -43,6 +43,7 @@ const routes: {
     changeFrequency: "monthly",
     images: ["/images/social-onlocation.jpg"],
   },
+  { path: "/contact", priority: 0.6, changeFrequency: "yearly" },
   { path: "/algemene-voorwaarden", priority: 0.2, changeFrequency: "yearly" },
   { path: "/privacybeleid", priority: 0.2, changeFrequency: "yearly" },
 ];

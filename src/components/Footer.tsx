@@ -30,7 +30,7 @@ const columns = [
       { label: "Werkwijze", href: "/#werkwijze" },
       { label: "Werkgebied", href: "/#werkgebied" },
       { label: "Tarieven", href: "/trouwerij#tarieven" },
-      { label: "Contact", href: PHONE_TEL },
+      { label: "Contact", href: "/contact" },
     ],
   },
   {
