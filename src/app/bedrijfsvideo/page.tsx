@@ -96,7 +96,7 @@ export default function Bedrijfsvideo() {
             aria-hidden
             className="pointer-events-none absolute inset-0 -z-10"
           >
-            <div className="absolute left-1/2 top-[-30%] h-[480px] w-[800px] -translate-x-1/2 rounded-full bg-accent/10 blur-[140px]" />
+            <div className="absolute left-1/2 top-[-30%] hidden h-[480px] w-[800px] -translate-x-1/2 rounded-full bg-accent/10 blur-[140px] md:block" />
           </div>
 
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -233,7 +233,7 @@ export default function Bedrijfsvideo() {
                 aria-hidden
                 className="pointer-events-none absolute inset-0"
               >
-                <div className="absolute left-1/2 top-[-60%] h-[380px] w-[640px] -translate-x-1/2 rounded-full bg-accent/20 blur-[120px]" />
+                <div className="absolute left-1/2 top-[-60%] hidden h-[380px] w-[640px] -translate-x-1/2 rounded-full bg-accent/20 blur-[120px] md:block" />
               </div>
               <div className="relative">
                 <h2 className="text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl">

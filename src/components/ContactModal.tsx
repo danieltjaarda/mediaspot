@@ -85,21 +85,20 @@ export default function ContactModal() {
     };
   }, [open]);
 
+  if (!open) return null;
+
   return (
     <div
       data-contact-modal
-      aria-hidden={!open}
-      className={`fixed inset-0 z-[100] flex items-center justify-center p-4 transition-opacity duration-300 ${
-        open ? "opacity-100" : "pointer-events-none opacity-0"
-      }`}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
     >
-      {/* Backdrop */}
+      {/* Backdrop: alleen in de DOM als de pop-up open is, anders blijft
+          Safari op iOS de fullscreen backdrop-blur toch berekenen. */}
       <button
         type="button"
         aria-label="Sluiten"
         onClick={() => setOpen(false)}
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
-        tabIndex={open ? 0 : -1}
+        className="absolute inset-0 bg-black/40 md:backdrop-blur-sm"
       />
 
       {/* Kaart */}
@@ -107,15 +106,12 @@ export default function ContactModal() {
         role="dialog"
         aria-modal="true"
         aria-label="Contact opnemen"
-        className={`relative w-full max-w-sm rounded-3xl bg-white p-7 shadow-2xl transition-all duration-300 sm:p-8 ${
-          open ? "translate-y-0 scale-100" : "translate-y-3 scale-95"
-        }`}
+        className="relative w-full max-w-sm rounded-3xl bg-white p-7 shadow-2xl sm:p-8"
       >
         <button
           type="button"
           onClick={() => setOpen(false)}
           aria-label="Sluiten"
-          tabIndex={open ? 0 : -1}
           className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
         >
           <svg
@@ -149,7 +145,6 @@ export default function ContactModal() {
         <div className="mt-6 flex flex-col gap-3">
           <a
             href={PHONE_TEL}
-            tabIndex={open ? 0 : -1}
             className="liquid-glass-dark btn-squeeze inline-flex h-12 items-center justify-center gap-2.5 rounded-full px-6 text-base font-semibold text-white hover:brightness-125"
           >
             <PhoneIcon />
@@ -159,7 +154,6 @@ export default function ContactModal() {
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            tabIndex={open ? 0 : -1}
             className="liquid-glass-dark btn-squeeze inline-flex h-12 items-center justify-center gap-2.5 rounded-full px-6 text-base font-semibold text-white hover:brightness-125"
           >
             <WhatsAppIcon />
@@ -167,7 +161,6 @@ export default function ContactModal() {
           </a>
           <a
             href="/contact"
-            tabIndex={open ? 0 : -1}
             onClick={() => setOpen(false)}
             className="liquid-glass-dark btn-squeeze inline-flex h-12 items-center justify-center gap-2.5 rounded-full px-6 text-base font-semibold text-white hover:brightness-125"
           >

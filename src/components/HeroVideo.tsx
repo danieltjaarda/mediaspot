@@ -22,11 +22,13 @@ const DESKTOP_SIZES = "(max-width: 1152px) 100vw, 1152px";
 
 /**
  * Hero-video die pas gaat downloaden nadat de pagina zelf geladen is, zodat hij
- * niet concurreert met tekst, fonts en afbeeldingen. De poster is een gewone
- * afbeelding (geoptimaliseerd en gepreload, per breakpoint de juiste uitsnede);
- * de video schuift er pas overheen zodra hij echt speelt. Start iOS niet
- * automatisch (energiebesparing) of wil de bezoeker minder beweging, dan
- * blijft de poster gewoon staan.
+ * niet concurreert met tekst, fonts en afbeeldingen. Op telefoons wachten we
+ * daarna nog tot de browser idle is; preload blijft op metadata, zodat niet
+ * meteen het hele bestand binnenkomt. De poster is een gewone afbeelding
+ * (geoptimaliseerd en gepreload, per breakpoint de juiste uitsnede); de video
+ * schuift er pas overheen zodra hij echt speelt. Start iOS niet automatisch
+ * (energiebesparing) of wil de bezoeker minder beweging, dan blijft de poster
+ * gewoon staan.
  */
 export default function HeroVideo({
   src,
@@ -74,19 +76,47 @@ export default function HeroVideo({
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let gestart = false;
+    let idleId = 0;
+    let fallbackId = 0;
     const start = () => {
       if (gestart) return;
       gestart = true;
-      const mobiel = mobileSrc && window.matchMedia(MOBIEL).matches;
-      setVideoSrc(mobiel ? mobileSrc : src);
+      const mobiel = Boolean(mobileSrc && window.matchMedia(MOBIEL).matches);
+      setVideoSrc(mobiel ? mobileSrc! : src);
     };
+
+    const naIdle = () => {
+      if ("requestIdleCallback" in window) {
+        idleId = window.requestIdleCallback(start, { timeout: 4000 });
+      } else {
+        fallbackId = window.setTimeout(start, 800);
+      }
+    };
+
+    const mobiel = window.matchMedia(MOBIEL).matches;
+
+    // Op telefoons: eerst de pagina, hydratie en posters laten landen.
+    // Geen 3s-vangnet: dat viel juist samen met de rest van de load.
+    if (mobiel) {
+      if (document.readyState === "complete") {
+        naIdle();
+      } else {
+        window.addEventListener("load", naIdle, { once: true });
+      }
+      return () => {
+        window.removeEventListener("load", naIdle);
+        if (idleId && "cancelIdleCallback" in window) {
+          window.cancelIdleCallback(idleId);
+        }
+        window.clearTimeout(fallbackId);
+      };
+    }
 
     if (document.readyState === "complete") {
       start();
       return;
     }
     window.addEventListener("load", start, { once: true });
-    // Vangnet als het load-event lang op zich laat wachten (trage derde partijen)
     const timer = window.setTimeout(start, 3000);
     return () => {
       window.removeEventListener("load", start);
@@ -122,7 +152,7 @@ export default function HeroVideo({
           loop
           playsInline
           autoPlay
-          preload="auto"
+          preload="metadata"
           aria-hidden
           onPlaying={() => setPlaying(true)}
           className={className}

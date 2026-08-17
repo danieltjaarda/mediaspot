@@ -28,7 +28,7 @@ export default function Hero() {
     <section className="relative overflow-hidden pb-8 pt-[6.5rem] sm:pt-28">
       {/* Achtergrond-gloed */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-[-30%] h-[480px] w-[800px] -translate-x-1/2 rounded-full bg-accent/10 blur-[140px]" />
+        <div className="absolute left-1/2 top-[-30%] hidden h-[480px] w-[800px] -translate-x-1/2 rounded-full bg-accent/10 blur-[140px] md:block" />
       </div>
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
