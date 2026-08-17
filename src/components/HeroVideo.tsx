@@ -86,7 +86,9 @@ export default function HeroVideo({
     };
 
     const naIdle = () => {
-      if ("requestIdleCallback" in window) {
+      // typeof-check i.p.v. `"in" window`: anders ziet TypeScript de else
+      // als onbereikbaar (requestIdleCallback zit in de DOM-types).
+      if (typeof window.requestIdleCallback === "function") {
         idleId = window.requestIdleCallback(start, { timeout: 4000 });
       } else {
         fallbackId = window.setTimeout(start, 800);
@@ -105,7 +107,7 @@ export default function HeroVideo({
       }
       return () => {
         window.removeEventListener("load", naIdle);
-        if (idleId && "cancelIdleCallback" in window) {
+        if (idleId && typeof window.cancelIdleCallback === "function") {
           window.cancelIdleCallback(idleId);
         }
         window.clearTimeout(fallbackId);
