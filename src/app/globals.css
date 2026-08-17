@@ -227,6 +227,15 @@ body {
   animation-play-state: paused;
 }
 
+/* Een carrousel die buiten beeld staat hoeft niet te draaien. MarqueeAutoPause
+   zet dit attribuut; zonder JavaScript lopen de carrousels gewoon door. */
+.social-marquee[data-offscreen="true"] .social-marquee-track,
+.social-marquee[data-offscreen="true"] .logo-marquee-track,
+.social-marquee[data-offscreen="true"] .review-marquee-track,
+.social-marquee[data-offscreen="true"] .review-marquee-track-reverse {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .social-marquee-track,
   .logo-marquee-track,
@@ -303,4 +312,75 @@ body {
   box-shadow:
     inset 0 1px 0 0 rgba(255, 255, 255, 0.95),
     0 12px 40px rgba(29, 29, 31, 0.12);
+}
+
+/* ---------------------------------------------------------------------------
+   Telefoons: geen backdrop-filter.
+   backdrop-filter dwingt de GPU om bij elke frame opnieuw te blurren wat er
+   achter het element staat. Bij de vaste header betekent dat werk bij élke
+   scroll-frame, en dat is op mobiele GPU's de duurste eigenschap op de pagina.
+   Hieronder houden we exact dezelfde vormgeving aan, maar met een dekkendere
+   achtergrond in plaats van de blur. Vanaf 768px blijft alles ongewijzigd.
+   --------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .liquid-glass,
+  .liquid-glass-strong,
+  .liquid-glass-dark,
+  .liquid-glass-dark-strong,
+  .liquid-glass-btn {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .liquid-glass {
+    background: rgba(255, 255, 255, 0.92);
+  }
+
+  .liquid-glass-strong {
+    background: rgba(255, 255, 255, 0.96);
+  }
+
+  .liquid-glass-dark {
+    background: linear-gradient(
+      135deg,
+      rgba(38, 40, 46, 0.94),
+      rgba(20, 21, 24, 0.92)
+    );
+  }
+
+  .liquid-glass-dark-strong {
+    background: linear-gradient(
+      135deg,
+      rgba(32, 34, 39, 0.95),
+      rgba(17, 18, 21, 0.94)
+    );
+  }
+
+  .liquid-glass-btn {
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.26),
+      rgba(255, 255, 255, 0.16)
+    );
+  }
+
+  /* `will-change` promoot elke knop naar een eigen compositielaag. Dat loont
+     alleen bij de hover-animatie, en hoveren gebeurt hier niet. */
+  .btn-squeeze {
+    will-change: auto;
+  }
+
+  /* Zelfde reden, voor de losse Tailwind-blurs op badges en knoppen. */
+  .backdrop-blur-sm,
+  .backdrop-blur-md {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  /* Het mask-image op de carrousels maakt van de hele strook een aparte laag
+     die bij elke animatieframe opnieuw wordt samengesteld. Op telefoons ruilen
+     we de vervagende randen in voor vloeiend scrollen. */
+  .social-marquee {
+    mask-image: none;
+  }
 }

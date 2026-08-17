@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState } from "react";
 
 type Props = {
@@ -54,9 +55,13 @@ export default function SocialVideoCard({
 }: Props) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [playing, setPlaying] = useState(false);
+  // Blijft waar zodra de video één keer gespeeld heeft, zodat pauzeren het
+  // huidige beeld laat staan in plaats van terug te springen naar de poster.
+  const [gestart, setGestart] = useState(false);
 
   function updatePlaying(next: boolean) {
     setPlaying(next);
+    if (next) setGestart(true);
     onPlayingChange?.(next);
   }
 
@@ -68,6 +73,12 @@ export default function SocialVideoCard({
       document.querySelectorAll<HTMLVideoElement>("video[data-social]").forEach((v) => {
         if (v !== video) v.pause();
       });
+      // De bron zetten we pas bij de eerste tik. Tot dat moment is dit een leeg
+      // media-element zonder decoder; anders houdt de carrousel er twaalf
+      // tegelijk open, wat op telefoons tegen de limiet aan loopt.
+      if (!video.src) video.src = src;
+      // play() moet in dezelfde gebeurtenis als de tik blijven, anders ziet
+      // iOS het niet meer als bewuste keuze van de bezoeker.
       void video.play();
     } else {
       video.pause();
@@ -81,16 +92,24 @@ export default function SocialVideoCard({
       aria-label={playing ? `Pauzeer: ${label}` : `Speel af: ${label}`}
       className="group relative block aspect-[9/16] w-full overflow-hidden rounded-2xl bg-neutral-900 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
     >
+      <Image
+        src={poster}
+        alt=""
+        aria-hidden
+        fill
+        sizes="(max-width: 640px) 160px, (max-width: 1024px) 192px, 208px"
+        className="object-cover"
+      />
+
       <video
         ref={videoRef}
         data-social
-        src={src}
-        poster={poster}
         preload="none"
         playsInline
         onPlay={() => updatePlaying(true)}
         onPause={() => updatePlaying(false)}
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover transition-opacity duration-300"
+        style={{ opacity: gestart ? 1 : 0 }}
       />
 
       {/* Donkere gradient onderin voor leesbaarheid van de views-badge */}

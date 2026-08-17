@@ -6,6 +6,7 @@ import "./globals.css";
 import ContactModal from "@/components/ContactModal";
 import JsonLd from "@/components/JsonLd";
 import LeadTracker from "@/components/LeadTracker";
+import MarqueeAutoPause from "@/components/MarqueeAutoPause";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
@@ -75,6 +76,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <ContactModal />
         <LeadTracker />
+        <MarqueeAutoPause />
         <JsonLd nodes={[organizationSchema(), websiteSchema()]} />
 
         {/* Google-tag (gtag.js): Google Analytics 4 + Google Ads-conversiemeting.

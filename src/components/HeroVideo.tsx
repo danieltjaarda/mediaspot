@@ -122,7 +122,7 @@ export default function HeroVideo({
           loop
           playsInline
           autoPlay
-          preload="auto"
+          preload="metadata"
           aria-hidden
           onPlaying={() => setPlaying(true)}
           className={className}
