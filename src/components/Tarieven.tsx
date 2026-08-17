@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+
+import { useInView } from "@/lib/useInView";
 
 type RingVariant = "zilver" | "goud" | "diamant";
 
@@ -174,24 +175,7 @@ function Check() {
 }
 
 export default function Tarieven() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const { ref: sectionRef, inView } = useInView<HTMLElement>(0.2);
 
   return (
     <section id="tarieven" ref={sectionRef} className="py-16 sm:py-20">
@@ -231,11 +215,13 @@ export default function Tarieven() {
                     : "-translate-x-44 -rotate-[360deg] opacity-0"
                 }`}
                 style={{
-                  transition: `translate 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${
-                    inView ? i * 200 : 0
-                  }ms, rotate 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${
-                    inView ? i * 200 : 0
-                  }ms, opacity 0.3s ease-out ${inView ? i * 200 : 0}ms`,
+                  transition: inView
+                    ? `translate 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${
+                        i * 200
+                      }ms, rotate 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${
+                        i * 200
+                      }ms, opacity 0.3s ease-out ${i * 200}ms`
+                    : "none",
                 }}
               >
                 <div className="ring-wiggle w-fit">

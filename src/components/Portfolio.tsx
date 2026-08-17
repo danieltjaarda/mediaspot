@@ -5,7 +5,7 @@ import LazyVideo from "./LazyVideo";
 type PortfolioItem = {
   title: string;
   text: string;
-  media: { type: "image" | "video"; src: string };
+  media: { type: "image"; src: string } | { type: "video"; src: string; poster: string };
   alt: string;
   wide?: boolean;
 };
@@ -14,7 +14,11 @@ const items: PortfolioItem[] = [
   {
     title: "Alle gasten in één beeld",
     text: "Groepsmoment vanuit de lucht gefilmd",
-    media: { type: "video", src: "/videos/portfolio-drone.mp4" },
+    media: {
+      type: "video",
+      src: "/videos/portfolio-drone.mp4",
+      poster: "/images/event-drone-poster.jpg",
+    },
     alt: "Drone-opname van bruiloftsgasten bij LOVE-letters",
     wide: true,
   },
@@ -33,7 +37,11 @@ const items: PortfolioItem[] = [
   {
     title: "Speeches & toost",
     text: "Emotie en humor, live vastgelegd",
-    media: { type: "video", src: "/videos/portfolio-speeches.mp4" },
+    media: {
+      type: "video",
+      src: "/videos/portfolio-speeches.mp4",
+      poster: "/images/portfolio-speeches-poster.jpg",
+    },
     alt: "Speech tijdens de bruiloftsreceptie",
     wide: true,
   },
@@ -62,6 +70,7 @@ function Card({ item }: { item: PortfolioItem }) {
       {item.media.type === "video" ? (
         <LazyVideo
           src={item.media.src}
+          poster={item.media.poster}
           ariaLabel={item.alt}
           className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
         />

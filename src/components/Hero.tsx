@@ -36,8 +36,10 @@ export default function Hero() {
           {/* Grote kaart links */}
           <div className="group relative flex min-h-[420px] flex-col justify-end overflow-hidden rounded-3xl p-8 sm:min-h-[520px] sm:p-10 lg:col-span-2 lg:row-span-2">
             <HeroVideo
-              src="/videos/herosectionvideo2.mp4"
+              src="/videos/hero-desktop.mp4"
+              mobileSrc="/videos/hero-mobile.mp4"
               poster="/images/hero-poster.jpg"
+              mobilePoster="/images/hero-mobile-poster.jpg"
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             />
             <div

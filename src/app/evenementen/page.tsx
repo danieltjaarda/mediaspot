@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import HeroVideo from "@/components/HeroVideo";
 import JsonLd from "@/components/JsonLd";
 import LazyVideo from "@/components/LazyVideo";
 import { breadcrumbSchema, pageMetadata, serviceSchema } from "@/lib/seo";
@@ -26,7 +27,7 @@ export const metadata = pageMetadata({
 type EventType = {
   title: string;
   text: string;
-  media: { type: "image" | "video"; src: string };
+  media: { type: "image"; src: string } | { type: "video"; src: string; poster: string };
   alt: string;
 };
 
@@ -52,7 +53,11 @@ const eventTypes: EventType[] = [
   {
     title: "Feesten & jubilea",
     text: "Een verjaardag, jubileum of gala om nooit te vergeten. Wij leggen de momenten vast waar het echt om draait.",
-    media: { type: "video", src: "/videos/portfolio-speeches.mp4" },
+    media: {
+      type: "video",
+      src: "/videos/portfolio-speeches.mp4",
+      poster: "/images/portfolio-speeches-poster.jpg",
+    },
     alt: "Speech en toost tijdens een feest",
   },
 ];
@@ -88,18 +93,13 @@ export default function Evenementen() {
 
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <div className="group relative flex min-h-[420px] flex-col justify-end overflow-hidden rounded-3xl p-8 sm:min-h-[520px] sm:p-10">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                aria-hidden
+              <HeroVideo
+                src="/videos/evenementen-hero-desktop.mp4"
+                mobileSrc="/videos/evenementen-hero-mobile.mp4"
                 poster="/images/event-drone-poster.jpg"
+                mobilePoster="/images/evenementen-hero-mobile-poster.jpg"
                 className="absolute inset-0 h-full w-full object-cover"
-              >
-                <source src="/videos/portfolio-drone.mp4" type="video/mp4" />
-              </video>
+              />
               <div
                 aria-hidden
                 className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"
@@ -164,6 +164,8 @@ export default function Evenementen() {
                   {t.media.type === "video" ? (
                     <LazyVideo
                       src={t.media.src}
+                      poster={t.media.poster}
+                      posterSizes="(max-width: 640px) 100vw, 50vw"
                       ariaLabel={t.alt}
                       className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     />

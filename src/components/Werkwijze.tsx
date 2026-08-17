@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+
+import { useInView } from "@/lib/useInView";
 
 const steps = [
   {
@@ -27,35 +28,20 @@ const steps = [
 ];
 
 export default function Werkwijze() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.25 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  // Kop en kaarten apart: de kop staat vaak al net in beeld, de kaarten niet.
+  const { ref: headingRef, inView: headingInView } =
+    useInView<HTMLDivElement>(0.25);
+  const { ref: listRef, inView } = useInView<HTMLOListElement>(0.25);
 
   return (
-    <section
-      id="werkwijze"
-      ref={sectionRef}
-      className="pb-16 pt-6 sm:pb-20 sm:pt-8"
-    >
+    <section id="werkwijze" className="pb-16 pt-6 sm:pb-20 sm:pt-8">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div
-          className={`max-w-xl transition-all duration-700 ease-out ${
-            inView ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+          ref={headingRef}
+          className={`max-w-xl ${
+            headingInView
+              ? "translate-y-0 opacity-100 transition-all duration-700 ease-out"
+              : "translate-y-6 opacity-0 transition-none"
           }`}
         >
           <h2 className="text-balance text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">
@@ -73,12 +59,17 @@ export default function Werkwijze() {
           </p>
         </div>
 
-        <ol className="relative mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <ol
+          ref={listRef}
+          className="relative mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5"
+        >
           {/* Verbindingslijn achter de nummers (desktop) */}
           <div
             aria-hidden
-            className={`absolute left-8 right-8 top-[41px] hidden h-[3px] origin-left rounded-full bg-gradient-to-r from-accent/60 via-accent/30 to-accent/60 transition-transform duration-[1400ms] ease-out lg:block ${
-              inView ? "scale-x-100" : "scale-x-0"
+            className={`absolute left-8 right-8 top-[41px] hidden h-[3px] origin-left rounded-full bg-gradient-to-r from-accent/60 via-accent/30 to-accent/60 lg:block ${
+              inView
+                ? "scale-x-100 transition-transform duration-[1400ms] ease-out"
+                : "scale-x-0 transition-none"
             }`}
           />
 
@@ -88,8 +79,10 @@ export default function Werkwijze() {
               style={{
                 transitionDelay: inView ? `${200 + i * 140}ms` : "0ms",
               }}
-              className={`group relative flex flex-col overflow-hidden rounded-3xl bg-white px-6 py-6 transition-all duration-700 ease-out hover:-translate-y-1.5 ${
-                inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+              className={`group relative flex flex-col overflow-hidden rounded-3xl bg-white px-6 py-6 hover:-translate-y-1.5 ${
+                inView
+                  ? "translate-y-0 opacity-100 transition-all duration-700 ease-out"
+                  : "translate-y-8 opacity-0 transition-none"
               }`}
             >
               <Image
@@ -102,8 +95,10 @@ export default function Werkwijze() {
               />
               <span
                 style={{ transitionDelay: inView ? `${350 + i * 140}ms` : "0ms" }}
-                className={`liquid-glass-btn flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold text-neutral-900 transition-all duration-500 ease-out group-hover:scale-110 ${
-                  inView ? "scale-100 opacity-100" : "scale-0 opacity-0"
+                className={`liquid-glass-btn flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold text-neutral-900 group-hover:scale-110 ${
+                  inView
+                    ? "scale-100 opacity-100 transition-all duration-500 ease-out"
+                    : "scale-0 opacity-0 transition-none"
                 }`}
               >
                 {i + 1}

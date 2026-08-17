@@ -14,7 +14,7 @@ type Dienst = {
   title: string;
   text: string;
   href: string;
-  media: { type: "image" | "video"; src: string };
+  media: { type: "image"; src: string } | { type: "video"; src: string; poster: string };
   alt: string;
   wide?: boolean;
   /** Uitsnede bijstellen, bijvoorbeeld bij verticale video in een brede kaart */
@@ -48,7 +48,11 @@ const diensten: Dienst[] = [
     title: "Social content",
     text: "Short-form video's voor TikTok, Reels en Shorts",
     href: "/social-content",
-    media: { type: "video", src: "/videos/social-tt2.mp4" },
+    media: {
+      type: "video",
+      src: "/videos/social-tt2-loop.mp4",
+      poster: "/images/social-tt2-loop-poster.jpg",
+    },
     alt: "Verticale social video voor een fatbike-merk",
     wide: true,
     focus: "object-[50%_30%]",
@@ -107,8 +111,10 @@ export default function Home() {
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <div className="group relative flex min-h-[460px] flex-col justify-end overflow-hidden rounded-3xl p-8 sm:min-h-[560px] sm:p-10">
               <HeroVideo
-                src="/videos/herosectionvideo2.mp4"
+                src="/videos/hero-desktop.mp4"
+                mobileSrc="/videos/hero-mobile.mp4"
                 poster="/images/hero-poster.jpg"
+                mobilePoster="/images/hero-mobile-poster.jpg"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div
@@ -202,6 +208,7 @@ export default function Home() {
                   {d.media.type === "video" ? (
                     <LazyVideo
                       src={d.media.src}
+                      poster={d.media.poster}
                       ariaLabel={d.alt}
                       className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
                         d.focus ?? ""

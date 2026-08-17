@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import HeroVideo from "@/components/HeroVideo";
 import JsonLd from "@/components/JsonLd";
 import LazyVideo from "@/components/LazyVideo";
 import { breadcrumbSchema, pageMetadata, serviceSchema } from "@/lib/seo";
@@ -26,7 +27,7 @@ export const metadata = pageMetadata({
 type VideoType = {
   title: string;
   text: string;
-  media: { type: "image" | "video"; src: string };
+  media: { type: "image"; src: string } | { type: "video"; src: string; poster: string };
   alt: string;
 };
 
@@ -40,19 +41,31 @@ const videoTypes: VideoType[] = [
   {
     title: "Productvideo",
     text: "Jouw product in de spotlight. Strak in beeld gebracht en gemonteerd om te overtuigen, van webshop tot beurspresentatie.",
-    media: { type: "video", src: "/videos/social-tt1.mp4" },
+    media: {
+      type: "video",
+      src: "/videos/social-tt1-loop.mp4",
+      poster: "/images/social-tt1-loop-poster.jpg",
+    },
     alt: "Productvideo van een verstelbaar bureau",
   },
   {
     title: "Commercial",
     text: "Korte, pakkende video's die blijven hangen. Perfect voor online campagnes, social ads en televisie.",
-    media: { type: "video", src: "/videos/social-tt2.mp4" },
+    media: {
+      type: "video",
+      src: "/videos/social-tt2-loop.mp4",
+      poster: "/images/social-tt2-loop-poster.jpg",
+    },
     alt: "Commercial voor een fatbike",
   },
   {
     title: "Testimonial & klantcase",
     text: "Niets overtuigt beter dan een tevreden klant. Wij leggen echte verhalen vast die vertrouwen wekken bij nieuwe klanten.",
-    media: { type: "video", src: "/videos/social-yt1.mp4" },
+    media: {
+      type: "video",
+      src: "/videos/social-yt1-loop.mp4",
+      poster: "/images/social-yt1-loop-poster.jpg",
+    },
     alt: "Interview waarin een expert uitleg geeft",
   },
 ];
@@ -88,18 +101,13 @@ export default function Bedrijfsvideo() {
 
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <div className="group relative flex min-h-[420px] flex-col justify-end overflow-hidden rounded-3xl p-8 sm:min-h-[520px] sm:p-10">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                aria-hidden
-                poster="/images/social-yt2-poster.jpg"
+              <HeroVideo
+                src="/videos/bedrijfsvideo-hero-desktop.mp4"
+                mobileSrc="/videos/bedrijfsvideo-hero-mobile.mp4"
+                poster="/images/bedrijfsvideo-hero-desktop-poster.jpg"
+                mobilePoster="/images/bedrijfsvideo-hero-mobile-poster.jpg"
                 className="absolute inset-0 h-full w-full object-cover"
-              >
-                <source src="/videos/social-yt2.mp4" type="video/mp4" />
-              </video>
+              />
               <div
                 aria-hidden
                 className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"
@@ -164,6 +172,8 @@ export default function Bedrijfsvideo() {
                   {t.media.type === "video" ? (
                     <LazyVideo
                       src={t.media.src}
+                      poster={t.media.poster}
+                      posterSizes="(max-width: 640px) 100vw, 50vw"
                       ariaLabel={t.alt}
                       className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     />

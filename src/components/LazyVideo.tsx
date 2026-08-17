@@ -1,24 +1,39 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 type Props = {
   src: string;
+  /** Stilstaand beeld dat direct zichtbaar is; de video schuift eroverheen zodra hij speelt. */
+  poster: string;
   className?: string;
   ariaLabel?: string;
+  /** Zie het sizes-attribuut van next/image; standaard past bij een kaart op volle breedte. */
+  posterSizes?: string;
 };
 
 /**
- * Video die pas begint te laden zodra hij bijna in beeld scrollt,
- * en pauzeert wanneer hij weer uit beeld is.
+ * Video die pas begint te laden zodra hij bijna in beeld scrollt, pas speelt
+ * als hij echt zichtbaar is en pauzeert wanneer hij weer uit beeld is.
+ * Zonder JavaScript, of als de browser autoplay weigert, blijft de poster staan.
  */
-export default function LazyVideo({ src, className, ariaLabel }: Props) {
-  const ref = useRef<HTMLVideoElement | null>(null);
+export default function LazyVideo({
+  src,
+  poster,
+  className,
+  ariaLabel,
+  posterSizes = "(max-width: 1024px) 100vw, 58vw",
+}: Props) {
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
+  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
-    const el = ref.current;
+    const el = wrapperRef.current;
     if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -26,7 +41,7 @@ export default function LazyVideo({ src, className, ariaLabel }: Props) {
           observer.disconnect();
         }
       },
-      { rootMargin: "500px" }
+      { rootMargin: "200px" }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -34,7 +49,7 @@ export default function LazyVideo({ src, className, ariaLabel }: Props) {
 
   useEffect(() => {
     if (!shouldLoad) return;
-    const el = ref.current;
+    const el = videoRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -44,23 +59,40 @@ export default function LazyVideo({ src, className, ariaLabel }: Props) {
           el.pause();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.25 }
     );
     observer.observe(el);
     return () => observer.disconnect();
   }, [shouldLoad]);
 
   return (
-    <video
-      ref={ref}
-      muted
-      loop
-      playsInline
-      autoPlay
-      preload="none"
-      src={shouldLoad ? src : undefined}
-      aria-label={ariaLabel}
-      className={className}
-    />
+    <div ref={wrapperRef} className="absolute inset-0" aria-label={ariaLabel} role={ariaLabel ? "img" : undefined}>
+      <Image
+        src={poster}
+        alt=""
+        aria-hidden
+        fill
+        sizes={posterSizes}
+        className={className}
+      />
+      {shouldLoad && (
+        <video
+          ref={videoRef}
+          src={src}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden
+          onPlaying={() => setPlaying(true)}
+          className={className}
+          style={{
+            opacity: playing ? 1 : 0,
+            transition:
+              "opacity 500ms ease, scale 700ms ease-out, transform 700ms ease-out",
+          }}
+        />
+      )}
+    </div>
   );
 }

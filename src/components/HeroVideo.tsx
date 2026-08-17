@@ -1,73 +1,138 @@
 "use client";
 
+import { getImageProps } from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { preload } from "react-dom";
 
 type Props = {
+  /** Video voor tablet en desktop. */
   src: string;
-  /** Eerste frame van de video, zodat er geen sprong is bij het starten. */
+  /** Kleinere, staande uitsnede voor telefoons; valt terug op src. */
+  mobileSrc?: string;
+  /** Eerste frame van src; staat direct in beeld en blijft staan als de video niet start. */
   poster: string;
+  /** Eerste frame van mobileSrc, zodat poster en video op telefoons dezelfde uitsnede tonen. */
+  mobilePoster?: string;
   className?: string;
 };
 
-export default function HeroVideo({ src, poster, className }: Props) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [ready, setReady] = useState(false);
+const MOBIEL = "(max-width: 767px)";
+const DESKTOP = "(min-width: 768px)";
+const DESKTOP_SIZES = "(max-width: 1152px) 100vw, 1152px";
 
-  // Uit de cache kan de video al klaar zijn voordat React de events koppelt.
+/**
+ * Hero-video die pas gaat downloaden nadat de pagina zelf geladen is, zodat hij
+ * niet concurreert met tekst, fonts en afbeeldingen. De poster is een gewone
+ * afbeelding (geoptimaliseerd en gepreload, per breakpoint de juiste uitsnede);
+ * de video schuift er pas overheen zodra hij echt speelt. Start iOS niet
+ * automatisch (energiebesparing) of wil de bezoeker minder beweging, dan
+ * blijft de poster gewoon staan.
+ */
+export default function HeroVideo({
+  src,
+  mobileSrc,
+  poster,
+  mobilePoster,
+  className,
+}: Props) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoSrc, setVideoSrc] = useState<string | null>(null);
+  const [playing, setPlaying] = useState(false);
+
+  const desktopImg = getImageProps({
+    src: poster,
+    alt: "",
+    fill: true,
+    sizes: DESKTOP_SIZES,
+    loading: "eager",
+    fetchPriority: "high",
+  }).props;
+  const mobileImg = mobilePoster
+    ? getImageProps({ src: mobilePoster, alt: "", fill: true, sizes: "100vw" })
+        .props
+    : null;
+
+  // Preload de poster als LCP-afbeelding, per breakpoint alleen de variant die getoond wordt.
+  preload(desktopImg.src, {
+    as: "image",
+    imageSrcSet: desktopImg.srcSet,
+    imageSizes: desktopImg.sizes,
+    fetchPriority: "high",
+    media: mobileImg ? DESKTOP : undefined,
+  });
+  if (mobileImg) {
+    preload(mobileImg.src, {
+      as: "image",
+      imageSrcSet: mobileImg.srcSet,
+      imageSizes: mobileImg.sizes,
+      fetchPriority: "high",
+      media: MOBIEL,
+    });
+  }
+
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let gestart = false;
+    const start = () => {
+      if (gestart) return;
+      gestart = true;
+      const mobiel = mobileSrc && window.matchMedia(MOBIEL).matches;
+      setVideoSrc(mobiel ? mobileSrc : src);
+    };
+
+    if (document.readyState === "complete") {
+      start();
+      return;
+    }
+    window.addEventListener("load", start, { once: true });
+    // Vangnet als het load-event lang op zich laat wachten (trage derde partijen)
+    const timer = window.setTimeout(start, 3000);
+    return () => {
+      window.removeEventListener("load", start);
+      window.clearTimeout(timer);
+    };
+  }, [src, mobileSrc]);
+
+  useEffect(() => {
+    if (!videoSrc) return;
     const video = videoRef.current;
-    if (video && video.readyState >= 3) setReady(true);
-  }, []);
+    if (!video) return;
+    // Autoplay kan geweigerd worden (bijv. energiebesparing); dan blijft de poster staan.
+    video.play().catch(() => {});
+  }, [videoSrc]);
 
   return (
     <>
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        aria-hidden
-        poster={poster}
-        onCanPlay={() => setReady(true)}
-        onPlaying={() => setReady(true)}
-        onError={() => setReady(true)}
-        className={className}
-      >
-        <source src={src} type="video/mp4" />
-      </video>
-
-      {/* Laadindicator rechtsonder, verdwijnt zodra de video kan spelen */}
-      <span
-        aria-hidden
-        className={`liquid-glass-btn pointer-events-none absolute bottom-5 right-5 z-10 flex h-9 w-9 items-center justify-center rounded-full transition-opacity duration-500 ${
-          ready ? "opacity-0" : "opacity-100"
-        }`}
-      >
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          className="animate-spin text-white"
-        >
-          <circle
-            cx="12"
-            cy="12"
-            r="9"
-            stroke="currentColor"
-            strokeOpacity="0.3"
-            strokeWidth="2.5"
+      <picture className="contents">
+        {mobileImg && (
+          <source
+            media={MOBIEL}
+            srcSet={mobileImg.srcSet}
+            sizes={mobileImg.sizes}
           />
-          <path
-            d="M21 12a9 9 0 0 0-9-9"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-          />
-        </svg>
-      </span>
+        )}
+        <img {...desktopImg} alt="" aria-hidden className={className} />
+      </picture>
+      {videoSrc && (
+        <video
+          ref={videoRef}
+          src={videoSrc}
+          muted
+          loop
+          playsInline
+          autoPlay
+          preload="auto"
+          aria-hidden
+          onPlaying={() => setPlaying(true)}
+          className={className}
+          style={{
+            opacity: playing ? 1 : 0,
+            transition:
+              "opacity 500ms ease, scale 700ms ease-out, transform 700ms ease-out",
+          }}
+        />
+      )}
     </>
   );
 }

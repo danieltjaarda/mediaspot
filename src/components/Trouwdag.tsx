@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+
+import { useInView } from "@/lib/useInView";
 
 type Foto = { src: string; alt: string };
 
@@ -91,30 +92,6 @@ const fasen: Fase[] = [
   },
 ];
 
-function useInView<T extends HTMLElement>(threshold = 0.2) {
-  const ref = useRef<T>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  return { ref, inView };
-}
-
 function FaseBlok({ fase, index }: { fase: Fase; index: number }) {
   const { ref, inView } = useInView<HTMLElement>();
   const beeldenEerst = index % 2 === 0;
@@ -133,9 +110,13 @@ function FaseBlok({ fase, index }: { fase: Fase; index: number }) {
             <div
               key={foto.src}
               style={{ transitionDelay: inView ? `${i * 140}ms` : "0ms" }}
-              className={`group relative aspect-square overflow-hidden rounded-3xl transition-all duration-700 ease-out ${
+              className={`group relative aspect-square overflow-hidden rounded-3xl ${
                 i === 0 ? "lg:mt-12" : ""
-              } ${inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
+              } ${
+                inView
+                  ? "translate-y-0 opacity-100 transition-all duration-700 ease-out"
+                  : "translate-y-8 opacity-0 transition-none"
+              }`}
             >
               <Image
                 src={foto.src}
@@ -151,10 +132,10 @@ function FaseBlok({ fase, index }: { fase: Fase; index: number }) {
 
       <div
         style={{ transitionDelay: inView ? "160ms" : "0ms" }}
-        className={`lg:col-span-5 ${
-          beeldenEerst ? "" : "lg:order-1"
-        } transition-all duration-700 ease-out ${
-          inView ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+        className={`lg:col-span-5 ${beeldenEerst ? "" : "lg:order-1"} ${
+          inView
+            ? "translate-y-0 opacity-100 transition-all duration-700 ease-out"
+            : "translate-y-6 opacity-0 transition-none"
         }`}
       >
         <h3 className="text-balance text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl">
@@ -190,8 +171,10 @@ export default function Trouwdag() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div
           ref={ref}
-          className={`max-w-xl transition-all duration-700 ease-out ${
-            inView ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+          className={`max-w-xl ${
+            inView
+              ? "translate-y-0 opacity-100 transition-all duration-700 ease-out"
+              : "translate-y-6 opacity-0 transition-none"
           }`}
         >
           <h2 className="text-balance text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">

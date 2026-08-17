@@ -1,7 +1,6 @@
 import { GeistSans } from "geist/font/sans";
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 
 import ContactModal from "@/components/ContactModal";
@@ -78,18 +77,37 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <LeadTracker />
         <JsonLd nodes={[organizationSchema(), websiteSchema()]} />
 
-        {/* Google-tag (gtag.js): Google Analytics 4 + Google Ads-conversiemeting */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-F39P87QKQJ"
-          strategy="afterInteractive"
-        />
-        <Script id="google-tag" strategy="afterInteractive">
-          {`window.dataLayer = window.dataLayer || [];
+        {/* Google-tag (gtag.js): Google Analytics 4 + Google Ads-conversiemeting.
+            De stub staat direct in de HTML, zodat gtag() en de dataLayer er
+            meteen zijn en vroege kliks (bellen, WhatsApp) worden gebufferd.
+            Het echte script (ruim 300 KB) laden we pas na het load-event, zodat
+            het niet concurreert met de pagina zelf; komt de bezoeker via een
+            advertentie (gclid/utm), dan laden we direct zodat de toeschrijving
+            niet verloren gaat. Onafhankelijk van React, dus ook zonder hydratie. */}
+        <script
+          id="google-tag"
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-F39P87QKQJ');
-gtag('config', 'AW-18383248376');`}
-        </Script>
+gtag('config', 'AW-18383248376');
+(function(){
+  var klaar = false;
+  function laad(){
+    if (klaar) return; klaar = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-F39P87QKQJ';
+    document.head.appendChild(s);
+  }
+  function rustig(){ (window.requestIdleCallback || function(f){ setTimeout(f, 1); })(laad); }
+  if (/[?&](gclid|gbraid|wbraid|gad_source|gclsrc|dclid|utm_[a-z]+|fbclid|msclkid)=/i.test(location.search)) { laad(); }
+  else if (document.readyState === 'complete') { rustig(); }
+  else { addEventListener('load', rustig); setTimeout(laad, 6000); }
+})();`,
+          }}
+        />
       </body>
     </html>
   );
