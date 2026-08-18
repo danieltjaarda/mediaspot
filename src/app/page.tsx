@@ -7,7 +7,6 @@ import HeroVideo from "@/components/HeroVideo";
 import LazyVideo from "@/components/LazyVideo";
 import Reviews from "@/components/Reviews";
 import Werkgebied from "@/components/Werkgebied";
-import Werkwijze from "@/components/Werkwijze";
 import WieBenIk from "@/components/WieBenIk";
 
 type Dienst = {
@@ -25,7 +24,7 @@ const diensten: Dienst[] = [
   {
     title: "Bruiloften",
     text: "Van ja-woord tot avondfeest, met vaste pakketten en prijzen",
-    href: "/trouwerij",
+    href: "/videograaf-bruiloft",
     media: { type: "image", src: "/images/bruiloft.png" },
     alt: "Bruidspaar met boeket tijdens de ceremonie",
     wide: true,
@@ -244,7 +243,6 @@ export default function Home() {
           </div>
         </section>
 
-        <Werkwijze />
         <Reviews />
         <WieBenIk />
         <Werkgebied />

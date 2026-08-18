@@ -1,13 +1,22 @@
+import Link from "next/link";
+
+import { PROVINCIES } from "@/lib/provincies";
+
 import { provinces } from "./nl-provinces";
 
 // Mediaspot werkt in heel Nederland: alle provincies zijn actief
 const activeIds = new Set(provinces.map((p) => p.id));
 
-const activeNames = provinces
-  .filter((p) => activeIds.has(p.id))
-  .map((p) => p.name);
+const slugByMapId = new Map(PROVINCIES.map((p) => [p.mapId, p.slug]));
 
-export default function Werkgebied() {
+type Props = {
+  /** Provincienamen linken naar de provinciepagina's (/videograaf-bruiloft/[provincie]). */
+  linkProvincies?: boolean;
+  /** Kaart-id (bijv. "NLFR") dat in de accentkleur wordt uitgelicht. */
+  highlightId?: string;
+};
+
+export default function Werkgebied({ linkProvincies = false, highlightId }: Props = {}) {
   return (
     <section id="werkgebied" className="py-16 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -29,15 +38,32 @@ export default function Werkgebied() {
               wij reizen graag naar je toe.
             </p>
             <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-2">
-              {activeNames.map((name) => (
-                <li
-                  key={name}
-                  className="flex items-center gap-2.5 text-neutral-700"
-                >
-                  <span className="h-2 w-2 shrink-0 rounded-full bg-accent" />
-                  {name}
-                </li>
-              ))}
+              {provinces
+                .filter((p) => activeIds.has(p.id))
+                .map((p) => {
+                  const slug = slugByMapId.get(p.id);
+                  const current = p.id === highlightId;
+                  return (
+                    <li
+                      key={p.id}
+                      className="flex items-center gap-2.5 text-neutral-700"
+                    >
+                      <span className="h-2 w-2 shrink-0 rounded-full bg-accent" />
+                      {linkProvincies && slug && !current ? (
+                        <Link
+                          href={`/videograaf-bruiloft/${slug}`}
+                          className="underline-offset-4 hover:text-accent hover:underline"
+                        >
+                          {p.name}
+                        </Link>
+                      ) : (
+                        <span className={current ? "font-semibold text-neutral-900" : undefined}>
+                          {p.name}
+                        </span>
+                      )}
+                    </li>
+                  );
+                })}
             </ul>
           </div>
 
@@ -54,14 +80,17 @@ export default function Werkgebied() {
             >
               {provinces.map((p) => {
                 const active = activeIds.has(p.id);
+                const current = p.id === highlightId;
                 return (
                   <path
                     key={p.id}
                     d={p.d}
                     className={
-                      active
-                        ? "fill-[#1d1d1f] transition-colors duration-200 hover:fill-[#3a3a3d]"
-                        : "fill-neutral-200"
+                      current
+                        ? "fill-accent"
+                        : active
+                          ? "fill-[#1d1d1f] transition-colors duration-200 hover:fill-[#3a3a3d]"
+                          : "fill-neutral-200"
                     }
                     stroke="#ffffff"
                     strokeWidth={2}

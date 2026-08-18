@@ -8,7 +8,7 @@ import { PHONE_DISPLAY, PHONE_TEL } from "@/lib/site";
 
 const navItems = [
   { label: "Portfolio", href: "/#diensten" },
-  { label: "Trouwerij", href: "/trouwerij" },
+  { label: "Trouwerij", href: "/videograaf-bruiloft" },
   { label: "Evenementen", href: "/evenementen" },
   { label: "Bedrijfsvideo", href: "/bedrijfsvideo" },
   { label: "Social content", href: "/social-content" },

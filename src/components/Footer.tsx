@@ -17,7 +17,7 @@ const columns = [
     title: "Diensten",
     links: [
       { label: "Bedrijfsfilms", href: "/bedrijfsvideo" },
-      { label: "Bruiloftsvideo's", href: "/trouwerij" },
+      { label: "Bruiloftsvideo's", href: "/videograaf-bruiloft" },
       { label: "Aftermovies", href: "/evenementen" },
       { label: "Social content", href: "/social-content" },
       { label: "Commercials", href: "/bedrijfsvideo" },
@@ -29,7 +29,7 @@ const columns = [
       { label: "Portfolio", href: "/#diensten" },
       { label: "Werkwijze", href: "/#werkwijze" },
       { label: "Werkgebied", href: "/#werkgebied" },
-      { label: "Tarieven", href: "/trouwerij#tarieven" },
+      { label: "Tarieven", href: "/videograaf-bruiloft#tarieven" },
       { label: "Contact", href: "/contact" },
     ],
   },

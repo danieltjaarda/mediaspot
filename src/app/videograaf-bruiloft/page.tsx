@@ -2,32 +2,37 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import JsonLd from "@/components/JsonLd";
+import Faq from "@/components/Faq";
 import Portfolio from "@/components/Portfolio";
 import Reviews from "@/components/Reviews";
 import Tarieven from "@/components/Tarieven";
 import Trouwdag from "@/components/Trouwdag";
+import TrouwIntro from "@/components/TrouwIntro";
 import Werkgebied from "@/components/Werkgebied";
 import Werkwijze from "@/components/Werkwijze";
 import WieBenIk from "@/components/WieBenIk";
 import {
   breadcrumbSchema,
+  faqSchema,
   pageMetadata,
   serviceSchema,
   videoSchema,
 } from "@/lib/seo";
+import { TROUW_FAQ } from "@/lib/trouw-faq";
 
-const PATH = "/trouwerij";
+const PATH = "/videograaf-bruiloft";
 
 export const metadata = pageMetadata({
-  title: "Trouwfilm laten maken vanaf € 799",
+  title: "Videograaf bruiloft | Trouwfilm laten maken vanaf € 799",
   description:
-    "Bruiloftsvideograaf voor jullie trouwfilm: van ja-woord tot avondfeest, in 4K gefilmd en binnen 3 weken geleverd. Vaste pakketten vanaf € 799, zonder reiskosten.",
+    "Videograaf voor jullie bruiloft in heel Nederland: cinematische trouwfilm van ja-woord tot avondfeest, in 4K en binnen 3 weken geleverd. Vaste pakketten vanaf € 799, zonder reiskosten.",
   path: PATH,
   keywords: [
+    "videograaf bruiloft",
+    "bruiloft videograaf",
     "trouwfilm laten maken",
     "bruiloftsvideograaf",
     "trouwvideo",
-    "videograaf bruiloft Friesland",
     "trouwfilm prijzen",
   ],
 });
@@ -37,20 +42,28 @@ export default function Trouwerij() {
     <>
       <Header />
       <main className="flex-1">
-        <Hero />
+        <Hero
+          title="Videograaf voor jullie bruiloft, cinematisch vastgelegd."
+          tagline="Trouwfilms door heel Nederland, vanaf € 799 en zonder reiskosten."
+        />
+        <TrouwIntro />
         <Werkwijze />
         <Portfolio />
         <Reviews />
         <Trouwdag />
         <Tarieven />
+        <Faq
+          items={TROUW_FAQ}
+          intro="Alles wat stellen ons vragen voordat ze een videograaf voor hun bruiloft boeken. Staat jullie vraag er niet bij? Bel of app ons gerust."
+        />
         <WieBenIk />
-        <Werkgebied />
+        <Werkgebied linkProvincies />
       </main>
       <Footer />
       <JsonLd
         nodes={[
           serviceSchema({
-            name: "Trouwfilm laten maken",
+            name: "Videograaf bruiloft: trouwfilm laten maken",
             serviceType: "Bruiloftsvideografie",
             description:
               "Cinematische trouwfilm van jullie bruiloft, inclusief professionele nabewerking en color grading. Geleverd in 4K en Full HD.",
@@ -82,7 +95,8 @@ export default function Trouwerij() {
             thumbnailPath: "/images/pakketten-video-poster.jpg",
             uploadDate: "2026-06-01",
           }),
-          breadcrumbSchema([{ name: "Trouwfilm", path: PATH }]),
+          faqSchema(TROUW_FAQ),
+          breadcrumbSchema([{ name: "Videograaf bruiloft", path: PATH }]),
         ]}
       />
     </>

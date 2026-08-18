@@ -5,6 +5,12 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  async redirects() {
+    return [
+      { source: "/trouwerij", destination: "/videograaf-bruiloft", permanent: true },
+      { source: "/trouwerij/:path*", destination: "/videograaf-bruiloft/:path*", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

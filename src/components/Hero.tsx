@@ -1,3 +1,4 @@
+import type React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,7 +24,17 @@ function ArrowButton() {
   );
 }
 
-export default function Hero() {
+type HeroProps = {
+  /** H1 van de pagina; bevat bij voorkeur het zoekwoord van de pagina. */
+  title?: React.ReactNode;
+  /** Korte regel onder de H1, bijvoorbeeld het werkgebied. */
+  tagline?: string;
+};
+
+export default function Hero({
+  title = "Videograaf voor jullie bruiloft, cinematisch vastgelegd.",
+  tagline,
+}: HeroProps) {
   return (
     <section className="relative overflow-hidden pb-8 pt-[6.5rem] sm:pt-28">
       {/* Achtergrond-gloed */}
@@ -52,8 +63,13 @@ export default function Hero() {
 
             <div className="relative">
               <h1 className="max-w-lg text-balance text-4xl font-semibold leading-tight tracking-tight text-white sm:text-5xl">
-                Jullie bruiloft, cinematisch vastgelegd.
+                {title}
               </h1>
+              {tagline && (
+                <p className="mt-4 max-w-md text-pretty text-base text-white/80 sm:text-lg">
+                  {tagline}
+                </p>
+              )}
               <div className="mt-5">
                 <RatingBadge />
               </div>

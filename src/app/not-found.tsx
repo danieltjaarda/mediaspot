@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 const links = [
-  { label: "Trouwfilm", href: "/trouwerij" },
+  { label: "Trouwfilm", href: "/videograaf-bruiloft" },
   { label: "Evenementen", href: "/evenementen" },
   { label: "Bedrijfsvideo", href: "/bedrijfsvideo" },
   { label: "Social content", href: "/social-content" },

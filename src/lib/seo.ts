@@ -21,7 +21,7 @@ import {
 type PageMetaInput = {
   title: string;
   description: string;
-  /** Pad inclusief leading slash, bijvoorbeeld "/trouwerij". */
+  /** Pad inclusief leading slash, bijvoorbeeld "/videograaf-bruiloft". */
   path: string;
   keywords?: string[];
 };
@@ -162,6 +162,8 @@ type ServiceInput = {
   path: string;
   serviceType: string;
   offers?: { name: string; price: number; description?: string }[];
+  /** Eén provincie voor lokale pagina's; standaard alle provincies uit AREA_SERVED. */
+  areaServed?: string;
 };
 
 export function serviceSchema({
@@ -170,6 +172,7 @@ export function serviceSchema({
   path,
   serviceType,
   offers,
+  areaServed,
 }: ServiceInput): JsonLdNode {
   const schema: JsonLdNode = {
     "@type": "Service",
@@ -179,7 +182,7 @@ export function serviceSchema({
     serviceType,
     url: `${SITE_URL}${path}`,
     provider: { "@id": ORGANIZATION_ID },
-    areaServed: AREA_SERVED.map((area) => ({
+    areaServed: (areaServed ? [areaServed] : AREA_SERVED).map((area) => ({
       "@type": "AdministrativeArea",
       name: area,
     })),

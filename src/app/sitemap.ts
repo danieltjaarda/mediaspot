@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { PROVINCIES } from "@/lib/provincies";
 import { SITE_URL } from "@/lib/site";
 
 const routes: {
@@ -15,7 +16,7 @@ const routes: {
     images: ["/images/hero-main.jpg", "/images/wie-ben-ik.jpg"],
   },
   {
-    path: "/trouwerij",
+    path: "/videograaf-bruiloft",
     priority: 0.9,
     changeFrequency: "monthly",
     images: [
@@ -43,6 +44,11 @@ const routes: {
     changeFrequency: "monthly",
     images: ["/images/social-onlocation.jpg"],
   },
+  ...PROVINCIES.map((p) => ({
+    path: `/videograaf-bruiloft/${p.slug}`,
+    priority: 0.7,
+    changeFrequency: "monthly" as const,
+  })),
   { path: "/contact", priority: 0.6, changeFrequency: "yearly" },
   { path: "/algemene-voorwaarden", priority: 0.2, changeFrequency: "yearly" },
   { path: "/privacybeleid", priority: 0.2, changeFrequency: "yearly" },
