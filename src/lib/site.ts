@@ -29,8 +29,12 @@ export const AREA_SERVED = [
   "Overijssel",
   "Flevoland",
   "Gelderland",
-  "Noord-Holland",
   "Utrecht",
+  "Noord-Holland",
+  "Zuid-Holland",
+  "Zeeland",
+  "Noord-Brabant",
+  "Limburg",
 ];
 
 /**

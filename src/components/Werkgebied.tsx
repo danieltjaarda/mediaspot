@@ -1,16 +1,7 @@
 import { provinces } from "./nl-provinces";
 
-// Provincies waar Mediaspot actief is
-const activeIds = new Set([
-  "NLGR", // Groningen
-  "NLFR", // Friesland
-  "NLDR", // Drenthe
-  "NLOV", // Overijssel
-  "NLFL", // Flevoland
-  "NLGE", // Gelderland
-  "NLUT", // Utrecht
-  "NLNH", // Noord-Holland
-]);
+// Mediaspot werkt in heel Nederland: alle provincies zijn actief
+const activeIds = new Set(provinces.map((p) => p.id));
 
 const activeNames = provinces
   .filter((p) => activeIds.has(p.id))
@@ -33,9 +24,9 @@ export default function Werkgebied() {
               </span>
             </h2>
             <p className="mt-5 text-pretty leading-relaxed text-neutral-500">
-              Van Groningen tot Utrecht en van Noord-Holland tot Gelderland:
-              wij komen filmen door bijna heel Nederland. Staat jouw locatie
-              op de kaart? Dan reizen wij graag naar je toe.
+              Van Groningen tot Zeeland en van Noord-Holland tot Limburg:
+              wij komen filmen door heel Nederland. Waar jullie ook trouwen,
+              wij reizen graag naar je toe.
             </p>
             <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-2">
               {activeNames.map((name) => (
@@ -76,11 +67,7 @@ export default function Werkgebied() {
                     strokeWidth={2}
                     strokeLinejoin="round"
                   >
-                    <title>
-                      {active
-                        ? `${p.name} — hier werken wij`
-                        : `${p.name} — buiten ons werkgebied`}
-                    </title>
+                    <title>{`${p.name} — hier werken wij`}</title>
                   </path>
                 );
               })}
