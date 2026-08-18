@@ -14,6 +14,8 @@ type Props = {
   /** Eerste frame van mobileSrc, zodat poster en video op telefoons dezelfde uitsnede tonen. */
   mobilePoster?: string;
   className?: string;
+  /** Toon op telefoons rechtsonder een kleine laadindicator tot de video speelt. */
+  laadIndicator?: boolean;
 };
 
 const MOBIEL = "(max-width: 767px)";
@@ -36,6 +38,7 @@ export default function HeroVideo({
   poster,
   mobilePoster,
   className,
+  laadIndicator = false,
 }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoSrc, setVideoSrc] = useState<string | null>(null);
@@ -164,6 +167,15 @@ export default function HeroVideo({
               "opacity 500ms ease, scale 700ms ease-out, transform 700ms ease-out",
           }}
         />
+      )}
+      {laadIndicator && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute bottom-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 backdrop-blur-sm transition-opacity duration-500 motion-reduce:hidden md:hidden"
+          style={{ opacity: playing ? 0 : 1 }}
+        >
+          <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+        </div>
       )}
     </>
   );

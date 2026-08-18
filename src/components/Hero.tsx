@@ -38,6 +38,7 @@ export default function Hero() {
             <HeroVideo
               src="/videos/hero-desktop.mp4"
               poster="/images/hero-poster.jpg"
+              laadIndicator
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             />
             <div
