@@ -95,9 +95,7 @@ export default function Evenementen() {
             <div className="group relative flex min-h-[420px] flex-col justify-end overflow-hidden rounded-3xl p-8 sm:min-h-[520px] sm:p-10">
               <HeroVideo
                 src="/videos/evenementen-hero-desktop.mp4"
-                mobileSrc="/videos/evenementen-hero-mobile.mp4"
                 poster="/images/event-drone-poster.jpg"
-                mobilePoster="/images/evenementen-hero-mobile-poster.jpg"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div

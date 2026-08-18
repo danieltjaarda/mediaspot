@@ -43,8 +43,8 @@ const videoTypes: VideoType[] = [
     text: "Jouw product in de spotlight. Strak in beeld gebracht en gemonteerd om te overtuigen, van webshop tot beurspresentatie.",
     media: {
       type: "video",
-      src: "/videos/social-tt1-loop.mp4",
-      poster: "/images/social-tt1-loop-poster.jpg",
+      src: "/videos/social-tt1.mp4",
+      poster: "/images/social-tt1-poster.jpg",
     },
     alt: "Productvideo van een verstelbaar bureau",
   },
@@ -53,8 +53,8 @@ const videoTypes: VideoType[] = [
     text: "Korte, pakkende video's die blijven hangen. Perfect voor online campagnes, social ads en televisie.",
     media: {
       type: "video",
-      src: "/videos/social-tt2-loop.mp4",
-      poster: "/images/social-tt2-loop-poster.jpg",
+      src: "/videos/social-tt2.mp4",
+      poster: "/images/social-tt2-poster.jpg",
     },
     alt: "Commercial voor een fatbike",
   },
@@ -63,8 +63,8 @@ const videoTypes: VideoType[] = [
     text: "Niets overtuigt beter dan een tevreden klant. Wij leggen echte verhalen vast die vertrouwen wekken bij nieuwe klanten.",
     media: {
       type: "video",
-      src: "/videos/social-yt1-loop.mp4",
-      poster: "/images/social-yt1-loop-poster.jpg",
+      src: "/videos/social-yt1.mp4",
+      poster: "/images/social-yt1-poster.jpg",
     },
     alt: "Interview waarin een expert uitleg geeft",
   },
@@ -103,9 +103,7 @@ export default function Bedrijfsvideo() {
             <div className="group relative flex min-h-[420px] flex-col justify-end overflow-hidden rounded-3xl p-8 sm:min-h-[520px] sm:p-10">
               <HeroVideo
                 src="/videos/bedrijfsvideo-hero-desktop.mp4"
-                mobileSrc="/videos/bedrijfsvideo-hero-mobile.mp4"
-                poster="/images/bedrijfsvideo-hero-desktop-poster.jpg"
-                mobilePoster="/images/bedrijfsvideo-hero-mobile-poster.jpg"
+                poster="/images/social-yt2-poster.jpg"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div

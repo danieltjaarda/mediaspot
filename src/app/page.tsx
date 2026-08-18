@@ -50,8 +50,8 @@ const diensten: Dienst[] = [
     href: "/social-content",
     media: {
       type: "video",
-      src: "/videos/social-tt2-loop.mp4",
-      poster: "/images/social-tt2-loop-poster.jpg",
+      src: "/videos/social-tt2.mp4",
+      poster: "/images/social-tt2-poster.jpg",
     },
     alt: "Verticale social video voor een fatbike-merk",
     wide: true,
@@ -112,9 +112,7 @@ export default function Home() {
             <div className="group relative flex min-h-[460px] flex-col justify-end overflow-hidden rounded-3xl p-8 sm:min-h-[560px] sm:p-10">
               <HeroVideo
                 src="/videos/hero-desktop.mp4"
-                mobileSrc="/videos/hero-mobile.mp4"
                 poster="/images/hero-poster.jpg"
-                mobilePoster="/images/hero-mobile-poster.jpg"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div
