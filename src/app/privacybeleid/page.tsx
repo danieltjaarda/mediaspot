@@ -191,6 +191,22 @@ const sections: LegalSection[] = [
           wat je invult of wat je vervolgens tegen ons zegt.
         </p>
         <p>
+          Daarnaast gebruiken we <strong>Microsoft Clarity</strong> om te zien
+          hoe bezoekers de site gebruiken: waar zij klikken, hoe ver zij
+          scrollen en waar zij vastlopen. Clarity kan hiervoor cookies plaatsen
+          en anonieme sessie-opnames maken; formuliervelden worden daarbij
+          standaard gemaskeerd. Hoe Microsoft met deze gegevens omgaat lees je
+          in de{" "}
+          <a
+            href="https://privacy.microsoft.com/nl-nl/privacystatement"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            privacyverklaring van Microsoft
+          </a>
+          .
+        </p>
+        <p>
           Verder plaatsen we geen advertentiepixels van andere partijen. De
           lettertypen staan op onze eigen server en alle video&apos;s spelen we
           zelf af, dus er zijn geen YouTube- of TikTok-spelers die meekijken.

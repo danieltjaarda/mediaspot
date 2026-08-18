@@ -108,6 +108,27 @@ gtag('config', 'AW-18383248376');
 })();`,
           }}
         />
+
+        {/* Microsoft Clarity (heatmaps en sessie-opnames). Zelfde patroon als
+            de Google-tag: de clarity()-stub staat direct klaar, het script
+            zelf laden we pas na het load-event zodat het de pagina niet vertraagt. */}
+        <script
+          id="microsoft-clarity"
+          dangerouslySetInnerHTML={{
+            __html: `(function(c,l,a,r,i){
+  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+  var klaar=false;
+  function laad(){
+    if(klaar)return;klaar=true;
+    var t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    l.head.appendChild(t);
+  }
+  function rustig(){(window.requestIdleCallback||function(f){setTimeout(f,1);})(laad);}
+  if(l.readyState==='complete'){rustig();}
+  else{addEventListener('load',rustig);setTimeout(laad,6000);}
+})(window,document,"clarity","script","y4a6u9gyi8");`,
+          }}
+        />
       </body>
     </html>
   );
